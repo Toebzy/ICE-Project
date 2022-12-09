@@ -1,5 +1,8 @@
 public class Main {
     public static void main(String args[]) {
-        new GUI();
+        new Menu();
+        FileIO testFileIO = new FileIO();
+        testFileIO.createOldGnoxi();
+
     }
 }

@@ -1,0 +1,40 @@
+@startuml
+!pragma layout smetana
+class FileIO
+class Gnoxi
+class GUI
+class Main
+class Menu
+
+Main : new Menu()
+
+Gnoxi : Gnoxi(String name)
+Gnoxi : doActivity()
+Gnoxi : doSleep()
+Gnoxi : doPoop()
+Gnoxi : getAge()
+Gnoxi : randomEvent()
+
+GUI : new Gnoxi(nameQuery)
+GUI : JFrame "Title"
+GUI : JPanel
+
+Menu : startGame
+Menu : exitGame
+Menu : Menu()
+Menu : ButtonHandler
+
+FileIO : checkForGnoxi()
+FileIO : writeGnoxiToCSV()
+FileIO : writeWithoutOverwrite()
+
+Main --> Menu
+Menu --> GUI
+
+GUI --> Gnoxi
+GUI --> FileIO
+Gnoxi --> FileIO
+
+
+
+@enduml
