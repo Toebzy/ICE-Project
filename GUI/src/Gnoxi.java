@@ -1,14 +1,17 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Gnoxi {
+
+    public int gold;           //balance
     private String name;
     private int age;
-    private int hunger;  //0-10
+    private int hunger;        //0-10
     private long birthDate;
-    private int happiness; //0-10
-    private int poop; //0-10
-    private int energy; //0-10
+    private int happiness;     //0-10
+    private int poop;          //0-10
+    private int energy;        //0-10
+
+    public int getGold() {
+        return gold;
+    }
 
     public String getName() {
         return name;
@@ -34,7 +37,9 @@ public class Gnoxi {
         return energy;
     }
 
-    public Gnoxi(String name, int age, int happiness, int hunger, int poop, int energy, long birthDate) {
+
+
+    public Gnoxi(String name, int age, int happiness, int hunger, int poop, int energy, long birthDate, int gold) {
 
         this.name = name;
         this.age = age;
@@ -43,9 +48,7 @@ public class Gnoxi {
         this.poop = poop;
         this.energy = energy;
         this.birthDate = birthDate;
-
-
-        System.out.println(getAge());
+        this.gold = gold;
 
     }
 
@@ -86,6 +89,7 @@ public class Gnoxi {
             if (poop <= 8){
                 happiness--;
             }
+
             poop =0;
             happiness ++;
             hunger ++;
@@ -120,6 +124,7 @@ public class Gnoxi {
             case 5: poop ++;
             case 6: energy ++;
             case 7: energy --;
+            case 8: gold++;
 
             default: break;
         }

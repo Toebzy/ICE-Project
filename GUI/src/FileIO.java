@@ -1,68 +1,43 @@
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileIO {
+    static File gnoxiFile = new File("Data/GnoxiData.csv");
+    static Scanner scan;
 
-    Scanner scan = new Scanner("Data/GnoxiData.csv");
+    static {
+        try {
+            scan = new Scanner(gnoxiFile);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    public boolean checkForGnoxi()
-    {
+    public static void checkForGnoxi() {
+        if (scan.hasNextLine()) {
+            GUI.oldGnoxi();
+        }
+        else {
+            GUI.newGnoxi();
+        }
+    }
+
+    public static void writeGnoxi(Gnoxi p) {
+        try {
+            FileWriter writer = new FileWriter("Data/GnoxiData.csv");
+            writer.write("name, age, happiness, hunger, poop, energy, birthDate, gold");
+            writer.write("\n" + p.getName() + ",0,10,0,0,10," + System.currentTimeMillis()+",0");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static Gnoxi createOldGnoxi() {
         scan.nextLine();
-        if(scan.hasNext()) {
-
-            return false;
-        }
-
-        return true;
+        String[] values = scan.nextLine().split(",");
+        Gnoxi p = new Gnoxi(values[0], Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]), Long.parseLong(values[6]), Integer.parseInt(values[7]));
+        return p;
     }
-    public void writeNewGnoxiToCSV(String name)
-    {
-      writeWithoutOverwrite(name + "0, 10, 0, 0, 10, " + System.currentTimeMillis());
-    }
-
-    public void createOldGnoxi()
-    {
-        try {
-            BufferedReader read = new BufferedReader(new FileReader("Data/GnoxiData.csv"));
-            read.readLine();
-            String str = read.readLine();
-            str = str.replace(" ", "");
-            String gnoxi[] = str.split(",");
-            String name = gnoxi[0];
-            for(String s : gnoxi)
-            {
-                System.out.println(s);
-            }
-            int age = Integer.parseInt(gnoxi[1]);
-            int happiness = Integer.parseInt(gnoxi[2]);
-            int hunger = Integer.parseInt(gnoxi[3]);
-            int poop = Integer.parseInt(gnoxi[4]);
-            int energy = Integer.parseInt(gnoxi[5]);
-            long birthday = Long.parseLong(gnoxi[6]);
-            Gnoxi gnoxi1 = new Gnoxi(name, age, happiness, hunger, poop, energy, birthday);
-            System.out.println(gnoxi1.getName() + " " + gnoxi1.getAge() + " " + gnoxi1.getBirthDate());
-        }
-        catch(IOException e){
-            System.out.println(e);
-        }
-
-    }
-
-
-    public void writeWithoutOverwrite(String str)
-    {
-        try {
-            FileWriter fileWriter = new FileWriter("Data/GnoxiData.csv",true);
-            BufferedWriter out = new BufferedWriter(fileWriter);
-            out.write("\n" + str);
-            out.close();
-        }
-        catch(IOException e){
-            System.out.println(e);
-        }
-
-    }
-
 }
