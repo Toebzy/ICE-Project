@@ -42,7 +42,7 @@ public class FileIO {
         try {
             FileWriter writer = new FileWriter("Data/GnoxiData.csv");
             writer.write("name, age, happiness, hunger, poop, energy, birthDate, gold");
-            writer.write("\n" + p.getName() + ",0,10,0,0,10," + System.currentTimeMillis()+",0");
+            writer.write("\n" + p.getName() + ",0,100,100,0,100," + System.currentTimeMillis()+",5000");
             writer.close();
         } catch (IOException e) {
             System.out.println(e);

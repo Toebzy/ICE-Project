@@ -4,11 +4,11 @@ public class Gnoxi {
     public String gnoxiType;
     private String name;
     private int age;
-    private int hunger;        //0-10
+    private int hunger;        //0-100
     private long birthDate;
-    private int happiness;     //0-10
-    private int poop;          //0-10
-    private int energy;        //0-10
+    private int happiness;     //0-100
+    private int poop;          //0-100
+    private int energy;        //0-100
 
 
     public int getGold() {
@@ -67,7 +67,16 @@ public class Gnoxi {
 
     }
 
-    //pSublic
+    public static String gnoxiType(){
+        int i = (int) (Math.random()*6);
+        if(i==1 || i==2){
+            return ("Media/Gnoxi/gnoxiDuck.png");
+        }
+        if(i==3 || i==4 || i==5){
+            return ("Media/Gnoxi/gnoxiBear.png");
+        }
+        return ("Media/Gnoxi/gnoxiRabbit.png");
+    }
 
     public void doSleep() {
         energy += 9;
@@ -79,8 +88,8 @@ public class Gnoxi {
 
     public void doActivity() {
         happiness++;
-        if (happiness < 10) {
-            happiness = 10;
+        if (happiness == 0) {
+          //  GUI.death();
         }
         energy--;
         if (energy < 10) {

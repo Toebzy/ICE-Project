@@ -4,7 +4,7 @@ import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+
 
 public class GUI{
         static Gnoxi currentGnoxi;
@@ -17,13 +17,12 @@ public class GUI{
         private JButton item5;
         private JButton item6;
         private JLabel gold;
-        private JPopupMenu itemBought; //UNUSED
+        private JPopupMenu noMoney; //UNUSED
         private JFrame frame;
-
-
+        private JPanel gnoxi;
         public static void newGnoxi(){            //asks user to input name
                 String nameQuery = JOptionPane.showInputDialog("Enter the name of your Gnoxi");
-                Gnoxi currentGnoxi = new Gnoxi(nameQuery, 0, 10, 0, 0, 10, System.currentTimeMillis(), 0);      //creates new gnoxi
+                Gnoxi currentGnoxi = new Gnoxi(nameQuery, 0, 100, 100, 0, 100, System.currentTimeMillis(), 5000);      //creates new gnoxi
                 FileIO.writeGnoxi(currentGnoxi);  //saves gnoxi to CSV
                 new GUI(currentGnoxi);            //starts GUI
         }
@@ -33,17 +32,18 @@ public class GUI{
                 new GUI(currentGnoxi);
         }
         public void death(){
-
-                //kill gnoxi here
-
-                int result = JOptionPane.showConfirmDialog(frame, "Your Gnoxi has died \n Start new game?","Death",
+                int result = JOptionPane.showConfirmDialog(frame, "       Your Gnoxi has died \n        Start new game?","Death",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
 
                 if(result == JOptionPane.YES_OPTION){
+                        newGnoxi();
+                        frame.dispose();
+
+                }
+                if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION){
+                        frame.dispose();
                         new Menu();
-                }else if (result == JOptionPane.NO_OPTION){
-                        System.exit(0);
                 }
         }
         public GUI(Gnoxi currentGnoxi) {
@@ -52,15 +52,16 @@ public class GUI{
                 //ICONS
 
                 ImageIcon logoIcon = new ImageIcon("Media/gnoxiIcon.png");                        //logo
-                ImageIcon gnoxiIcon = new ImageIcon("Media/Gnoxi/gnoxiRabbit.png");               //Gnoxi
+                ImageIcon gnoxiIcon = new ImageIcon(Gnoxi.gnoxiType());                                   //Gnoxi
                 ImageIcon sleepIcon = new ImageIcon("Media/Interaction/sleepIcon.png");           //sleep
                 ImageIcon cleanIcon = new ImageIcon("Media/Interaction/cleanIcon.png");           //clean
                 ImageIcon feedIcon = new ImageIcon("Media/Interaction/feedIcon.png");             //feed
                 ImageIcon foodIcon = new ImageIcon("Media/ShopIcons/foodIcon.png");               //food1
                 ImageIcon energyDrinkIcon = new ImageIcon("Media/ShopIcons/energyDrinkIcon.png"); //energy drink
-                ImageIcon happinessIcon = new ImageIcon("Media/StatusBars/happiness.png");       //happiness
-                ImageIcon hungerIcon = new ImageIcon("Media/StatusBars/hunger.png");             //hunger
-                ImageIcon energyIcon = new ImageIcon("Media/StatusBars/energy.png");             //energy
+                ImageIcon shopBow = new ImageIcon("Media/ShopIcons/shopBow.png");                 //shop bow
+                ImageIcon happinessIcon = new ImageIcon("Media/StatusBars/happiness.png");        //happiness
+                ImageIcon hungerIcon = new ImageIcon("Media/StatusBars/hunger.png");              //hunger
+                ImageIcon energyIcon = new ImageIcon("Media/StatusBars/energy.png");              //energy
                 ImageIcon goldIcon = new ImageIcon("Media/ShopIcons/goldIcon.png");               //gold
 
 
@@ -92,7 +93,7 @@ public class GUI{
                 item1.setVerticalTextPosition(JLabel.CENTER);
                 item1.addActionListener(handler);
                 item1.setText("Food: 5g");
-                item1.setToolTipText("Adds 1+ food");
+                item1.setToolTipText("15+ food");
 
                 JButton item2 = new JButton();
                 this.item2 = item2;
@@ -101,6 +102,7 @@ public class GUI{
                 item2.setVerticalTextPosition(JLabel.CENTER);
                 item2.addActionListener(handler);
                 item2.setText("E-Drink: 15g");
+                item2.setToolTipText("15+ energy");
 
                 JButton item3 = new JButton();
                 this.item3 = item3;
@@ -114,14 +116,22 @@ public class GUI{
                 JButton item5 = new JButton();
                 this.item5 = item5;
                 item5.setBackground(ColorUIResource.WHITE);
+                item5.setIcon(shopBow);
+                item5.setVerticalTextPosition(JLabel.CENTER);
+                item5.addActionListener(handler);
+                item5.setText("Bow: 500g");
+                item5.setToolTipText("adds a pretty lil' bow");
+
 
                 JButton item6 = new JButton();
                 this.item6 = item6;
                 item6.setBackground(ColorUIResource.WHITE);
 
-                JPopupMenu itemBought = new JPopupMenu();
-                this.itemBought = itemBought;    // UNUSED
-                itemBought.add("Item bought");
+
+
+                JPopupMenu noMoney = new JPopupMenu();
+                this.noMoney = noMoney;    // UNUSED
+                noMoney.add("Not enough gold");
 
 
 
@@ -195,29 +205,28 @@ public class GUI{
                 StatusField.add(energyStat,a);
 
 
-
-
+                JLabel hungerLabel = new JLabel();
+                hungerLabel.setIcon(hungerIcon);
+                hungerLabel.setOpaque(false);
                 JProgressBar progressBar = new JProgressBar();
-                JLayeredPane layeredPane = new JLayeredPane();
-                layeredPane.add(progressBar,0);
-                ImageIcon icon = new ImageIcon("Media/StatusBars/energy.png");
-                BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g = image.createGraphics();
-                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                g.drawImage(icon.getImage(), 0, 0, null);
-                g.dispose();
-
-                JLabel imageLabel = new JLabel(new ImageIcon(image));
-                layeredPane.add(imageLabel, 1);
+                progressBar.setOpaque(false);
                 progressBar.setMaximum(100);
-                progressBar.setStringPainted(true);
                 progressBar.setOrientation(JProgressBar.VERTICAL);
                 progressBar.setPreferredSize(new Dimension(40, 40));
 
+                JLabel happinessLabel = new JLabel();
+                happinessLabel.setIcon(happinessIcon);
+                happinessLabel.setOpaque(false);
                 JProgressBar progressBar2 = new JProgressBar();
+                progressBar2.setOpaque(false);
                 progressBar2.setOrientation(JProgressBar.VERTICAL);
                 progressBar2.setPreferredSize(new Dimension(40, 40));
+
+                JLabel energyLabel = new JLabel();
+                energyLabel.setIcon(energyIcon);
+                energyLabel.setOpaque(false);
                 JProgressBar progressBar3 = new JProgressBar();
+                progressBar3.setOpaque(false);
                 progressBar3.setOrientation(JProgressBar.VERTICAL);
                 progressBar3.setPreferredSize(new Dimension(40, 40));
 
@@ -225,23 +234,31 @@ public class GUI{
                 Container container = StatusField;
                 a.gridx = 0;
                 a.gridy = 1;
-                container.add(layeredPane,a);
+                container.add(hungerLabel,a);
+                container.add(progressBar,a);
                 a.gridx = 1;
                 a.gridy = 1;
+                container.add(happinessLabel,a);
                 container.add(progressBar2,a);
                 a.gridx = 2;
                 a.gridy = 1;
+                container.add(energyLabel,a);
                 container.add(progressBar3,a);
 
                 // Create a new thread for the incrementing function
                 Thread incrementThread = new Thread(() -> {
+
                         int hunger= currentGnoxi.getHunger();
 
-                        while (hunger>0) {
-                                currentGnoxi.setHunger(hunger--);
 
-                                progressBar.setValue(hunger);
-                                if (hunger < 30) {
+                        while (currentGnoxi.getHunger()>0) {
+                                currentGnoxi.setHunger(currentGnoxi.getHunger()-1);
+
+                                progressBar.setValue(currentGnoxi.getHunger());
+                                if(currentGnoxi.getHunger()==0){
+                                        death();
+                                }
+                                else if (hunger < 30) {
                                         progressBar.setForeground(Color.RED);
                                 } else if (hunger > 30 && hunger < 60){
                                         progressBar.setForeground(Color.yellow);
@@ -251,7 +268,7 @@ public class GUI{
                                 }
 
                                 try {
-                                        Thread.sleep(100); // real milis 2592000
+                                        Thread.sleep(1000); // real milis 2592000
                                 } catch (InterruptedException e) {
                                         // If the thread is interrupted, break out of the loop
                                         break;
@@ -264,10 +281,13 @@ public class GUI{
                 Thread incrementThread2 = new Thread(() -> {
                         int happiness = currentGnoxi.getHappiness();
 
-                        while (happiness>0) {
-                                currentGnoxi.setHappiness(happiness--);
+                        while (currentGnoxi.getHappiness()>0) {
+                                currentGnoxi.setHappiness(currentGnoxi.getHappiness()-1);
 
-                                progressBar2.setValue(happiness);
+                                progressBar2.setValue(currentGnoxi.getHappiness());
+                                if(currentGnoxi.getHappiness()==0){
+                                        death();
+                                }
                                 if (happiness < 30) {
                                         progressBar2.setForeground(Color.RED);
                                 } else if (happiness > 30 && happiness < 60){
@@ -278,7 +298,7 @@ public class GUI{
                                 }
 
                                 try {
-                                        Thread.sleep(100); // Pause the thread for 10 seconds
+                                        Thread.sleep(10000); // Pause the thread for 10 seconds
                                 } catch (InterruptedException e) {
                                         // If the thread is interrupted, break out of the loop
                                         break;
@@ -287,13 +307,15 @@ public class GUI{
 
                 });
                 incrementThread2.start();
+
                 Thread incrementThread3 = new Thread(() -> {
                         int energy= currentGnoxi.getEnergy();
-
-                        while (energy>0) {
-                                currentGnoxi.setEnergy(energy--);
-
-                                progressBar3.setValue(energy);
+                        while (currentGnoxi.getEnergy()>0) {
+                                currentGnoxi.setEnergy(currentGnoxi.getEnergy()-1);
+                                if(currentGnoxi.getEnergy()==0){
+                                        death();
+                                }
+                                progressBar3.setValue(currentGnoxi.getEnergy());
                                 if (energy < 30) {
                                         progressBar3.setForeground(Color.RED);
                                 } else if (energy > 30 && energy < 60){
@@ -304,7 +326,7 @@ public class GUI{
                                 }
 
                                 try {
-                                        Thread.sleep(100); // Pause the thread for 10 seconds
+                                        Thread.sleep(1000); // Pause the thread for 10 seconds
                                 } catch (InterruptedException e) {
                                         // If the thread is interrupted, break out of the loop
                                         break;
@@ -316,22 +338,31 @@ public class GUI{
                 incrementThread3.start();
 
 
-                JPanel Gnoxi = new JPanel();                                //Gnoxi panel
-                Gnoxi.setBackground(ColorUIResource.PINK);
-                Gnoxi.add(gnoxi1);
+                JLabel bowLabel = new JLabel();
+                bowLabel.setIcon(new ImageIcon("Media/Gnoxi/gnoxiBow.png"));
+                JPanel gnoxi = new JPanel();
+                //Gnoxi panel
+                gnoxi.setLayout(new GridBagLayout());
+                GridBagConstraints q = new GridBagConstraints();
+                gnoxi.setBackground(ColorUIResource.PINK);
+                q.gridx = 0;
+                q.gridy = 0;
+                gnoxi.add(bowLabel,q);
+                gnoxi.add(gnoxi1,q);
+                gnoxi.setBorder(new EmptyBorder(20,0,0,0));
 
                 JPanel Interaction = new JPanel();                          //Interaction panel
                 Interaction.setBackground(ColorUIResource.PINK);
+                Interaction.setBorder(new EmptyBorder(0,0,0,200));
                 Interaction.add(sleep);
-                Interaction.add(clean);
-                Interaction.add(feed);
-                Interaction.setLayout(new FlowLayout(FlowLayout.CENTER,50,0));
+                Interaction.setLayout(new FlowLayout(FlowLayout.LEFT,50,0));
+
 
                 JPanel GnoxiPanel = new JPanel();
                 GnoxiPanel.setLayout(new GridBagLayout());
                 GnoxiPanel.setBackground(ColorUIResource.PINK);
                 GridBagConstraints d = new GridBagConstraints();
-                GnoxiPanel.setBorder(new EmptyBorder(20,10,27,10));
+                GnoxiPanel.setBorder(new EmptyBorder(20,10,17,10));
                 d.weighty = 0.1;
                 d.fill = GridBagConstraints.VERTICAL;
                 d.gridx = 0;
@@ -342,13 +373,14 @@ public class GUI{
                 d.gridx = 0;
                 d.gridy = 2;
                 d.ipady=40;
-                GnoxiPanel.add(Gnoxi,d);
+                GnoxiPanel.add(gnoxi,d);
                 d.ipady=10;
                 d.weighty = 0.1;
                 d.fill = GridBagConstraints.VERTICAL;
                 d.gridx = 0;
                 d.gridy = 3;
                 GnoxiPanel.add(Interaction,d);
+
 
                 //FRAME
                 JFrame frame = new JFrame("GnoxiWorld");               //Main frame
@@ -365,7 +397,7 @@ public class GUI{
                 c.weighty = 1;
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.gridx = 0;
-                c.gridheight=3;
+                c.gridheight=5;
                 frame.add(GnoxiPanel,c);
                 c.gridheight=1;
                 c.weighty = 0;
@@ -380,16 +412,43 @@ public class GUI{
                 c.fill = GridBagConstraints.CENTER;
                 frame.add(gold,c);
 
-
         }
+
         private class ButtonHandler implements ActionListener {
                 public void actionPerformed(ActionEvent e) {
 
                         if (e.getSource() == item1) {
-                                shop.buy(1);
+
+                                if (currentGnoxi.getHunger() == 100){
+                                        System.out.println("Gnoxi is full");
+                                }
+
+                                else if (currentGnoxi.getHunger()+15 > 100){
+                                        currentGnoxi.setHunger(100);
+                                        System.out.println(currentGnoxi.getHunger());
+                                        if(!shop.buy(1)){
+                                                //JOptionPane.PLAIN_MESSAGE("","",);
+                                        }
+                                }
+                                else {
+                                        shop.buy(1);
+                                        currentGnoxi.setHunger(currentGnoxi.getHunger()+15);
+                                }
                         }
                         if (e.getSource() == item2) {
                                 shop.buy(2);
+                                if (currentGnoxi.getEnergy() == 100){
+                                        System.out.println("Gnoxi is fully energized");
+                                }
+                                else if (currentGnoxi.getEnergy()+15 > 100){
+                                        currentGnoxi.setEnergy(100);
+                                        System.out.println(currentGnoxi.getEnergy());
+                                        shop.buy(1);
+                                }
+                                else {
+                                        shop.buy(1);
+                                        currentGnoxi.setHunger(currentGnoxi.getEnergy()+15);
+                                }
                         }
                         if (e.getSource() == item3) {
                                 //shop.buy(3);

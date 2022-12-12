@@ -1,8 +1,5 @@
 public class Shop {
-
-
-
-    public void buy(int itemNumber){
+    public boolean buy(int itemNumber){
         int balance = GUI.currentGnoxi.getGold();
         int price = 0;
 
@@ -10,7 +7,7 @@ public class Shop {
             price = 5;
             if (balance<price) {
                 System.out.println("not enough gold");
-                return;
+                return false;
             }
 
         }
@@ -18,7 +15,7 @@ public class Shop {
             price = 15;
             if (balance<price) {
                 System.out.println("not enough gold");
-                return;
+                return false;
             }
 
         }
@@ -26,7 +23,7 @@ public class Shop {
             price = 10;
             if (balance<price) {
                 System.out.println("not enough gold");
-                return;
+                return false;
             }
 
         }
@@ -34,15 +31,15 @@ public class Shop {
             price = 20;
             if (balance<price) {
                 System.out.println("not enough gold");
-                return;
+                return false;
             }
 
         }
         if (itemNumber == 5){
-            price = 50;
+            price = 500;
             if (balance<price) {
                 System.out.println("not enough gold");
-                return;
+                return false;
             }
 
         }
@@ -50,15 +47,12 @@ public class Shop {
             price = 100;
             if (balance<price) {
                 System.out.println("not enough gold");
-                return;
+                return false;
             }
 
         }
-
         int newBalance = balance - price;
         GUI.currentGnoxi.setGold(newBalance);
+        return true;
     }
-
-
-
 }

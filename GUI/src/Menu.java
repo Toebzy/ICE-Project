@@ -15,9 +15,6 @@ public class Menu extends JFrame {
 
     public Menu(){
 
-        //MUSIC
-        musicPlayer("Cascade");   //Titles = Cascade - Limerence - It's okay
-
         ImageIcon icon = new ImageIcon("Media/gnoxiIcon.png");
         ImageIcon gnoxiHeader = new ImageIcon("Media/gnoxiHeader.png");
 
@@ -68,6 +65,7 @@ public class Menu extends JFrame {
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);   //loops the music
             clip.start();
+
         } catch(Exception ex) {
             System.out.println("Error with playing sound.");
             ex.printStackTrace();
