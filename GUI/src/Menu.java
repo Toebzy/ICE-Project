@@ -2,6 +2,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -34,6 +35,7 @@ public class Menu extends JFrame {
 
         JLabel gnoxiHead = new JLabel();                                        //menu title text and picture
         gnoxiHead.setIcon(gnoxiHeader);
+        gnoxiHead.setBackground(ColorUIResource.WHITE);
         gnoxiHead.setText("G N O X I W O R L D");
         gnoxiHead.setFont(new Font("Segoe Print", Font.BOLD, 20));
         gnoxiHead.setVerticalTextPosition(JLabel.TOP);
@@ -77,7 +79,7 @@ public class Menu extends JFrame {
             if (e.getSource() == startGameButton) {
                 FileIO.checkForGnoxi();
             }
-            if (e.getSource() == exitGameButton) {
+            else if (e.getSource() == exitGameButton) {
                 System.exit(0);
             }
         }

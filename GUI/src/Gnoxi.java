@@ -1,6 +1,7 @@
 public class Gnoxi {
 
     public int gold;           //balance
+    public String gnoxiType;
     private String name;
     private int age;
     private int hunger;        //0-10
@@ -8,6 +9,7 @@ public class Gnoxi {
     private int happiness;     //0-10
     private int poop;          //0-10
     private int energy;        //0-10
+
 
     public int getGold() {
         return gold;
@@ -24,6 +26,9 @@ public class Gnoxi {
     public int getHunger() {
         return hunger;
     }
+    public void setHunger(int hunger) {
+        this.hunger = hunger;
+    }
 
     public long getBirthDate() {
         return birthDate;
@@ -32,6 +37,9 @@ public class Gnoxi {
     public int getHappiness() {
         return happiness;
     }
+    public void setHappiness(int happiness) {
+        this.happiness = happiness;
+    }
 
     public int getPoop() {
         return poop;
@@ -39,6 +47,9 @@ public class Gnoxi {
 
     public int getEnergy() {
         return energy;
+    }
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 
 
@@ -55,6 +66,8 @@ public class Gnoxi {
         this.gold = gold;
 
     }
+
+    //pSublic
 
     public void doSleep() {
         energy += 9;
@@ -133,4 +146,5 @@ public class Gnoxi {
             default: break;
         }
     }
+
 }
