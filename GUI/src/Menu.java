@@ -11,7 +11,12 @@ public class Menu extends JFrame {
     private JButton startGameButton;
     private JButton exitGameButton;
 
+
     public Menu(){
+
+        //MUSIC
+        musicPlayer("Cascade");   //Titles = Cascade - Limerence - It's okay
+
         ImageIcon icon = new ImageIcon("Media/gnoxiIcon.png");
         ImageIcon gnoxiHeader = new ImageIcon("Media/gnoxiHeader.png");
 

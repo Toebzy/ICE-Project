@@ -13,6 +13,10 @@ public class Gnoxi {
         return gold;
     }
 
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
     public String getName() {
         return name;
     }

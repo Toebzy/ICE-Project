@@ -1,15 +1,17 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 
 public class GUI{
         static Gnoxi currentGnoxi;
+        public Shop shop = new Shop();
 
-        public static void newGnoxi(){                          //asks user to input name
+        public static void newGnoxi(){            //asks user to input name
                 String nameQuery = JOptionPane.showInputDialog("Enter the name of your Gnoxi");
                 Gnoxi currentGnoxi = new Gnoxi(nameQuery, 0, 10, 0, 0, 10, System.currentTimeMillis(), 0);      //creates new gnoxi
-                FileIO.writeGnoxi(currentGnoxi);//saves gnoxi to CSV
-                new GUI(currentGnoxi);          //starts GUI
+                FileIO.writeGnoxi(currentGnoxi);  //saves gnoxi to CSV
+                new GUI(currentGnoxi);            //starts GUI
         }
 
         public static void oldGnoxi(){
@@ -19,10 +21,14 @@ public class GUI{
         public GUI(Gnoxi currentGnoxi) {
                 this.currentGnoxi=currentGnoxi;
 
+
+                shop.buy(1);    //TEST OF SHOP
+
+
                                                  //ICONS
 
                 ImageIcon logoIcon = new ImageIcon("Media/gnoxiIcon.png");                     //logo
-                ImageIcon gnoxiIcon = new ImageIcon("Media/Gnoxi/gnoxiBear.png");              //Gnoxi
+                ImageIcon gnoxiIcon = new ImageIcon("Media/Gnoxi/gnoxiRabbit.png");              //Gnoxi
                 ImageIcon sleepIcon = new ImageIcon("Media/Interaction/sleepIcon.png");        //sleep
                 ImageIcon cleanIcon = new ImageIcon("Media/Interaction/cleanIcon.png");        //clean
                 ImageIcon feedIcon = new ImageIcon("Media/Interaction/feedIcon.png");          //feed
@@ -35,6 +41,7 @@ public class GUI{
                                                 //BUTTONS
 
                 JButton sleep = new JButton();
+                // sleep.press
                 sleep.setIcon(sleepIcon);
                 sleep.setBackground(ColorUIResource.WHITE);
 
@@ -48,11 +55,11 @@ public class GUI{
                 feed.setBackground(ColorUIResource.WHITE);
 
 
-
                                                 //SHOP BUTTONS
                 JButton item1 = new JButton();
                 item1.setIcon(foodIcon);
                 item1.setBackground(ColorUIResource.WHITE);
+                item1.setVerticalTextPosition(JLabel.TOP);
                 item1.setText("Food: 5g");
                 JButton item2 = new JButton();
                 item2.setBackground(ColorUIResource.WHITE);
@@ -68,10 +75,12 @@ public class GUI{
                                                 //LABELS
 
                 JLabel gold = new JLabel();
-                gold.setText(" "+currentGnoxi.getGold());
-                gold.setVerticalTextPosition(JLabel.TOP);
-                gold.setFont(new Font("Arial", Font.BOLD, 12));
+                gold.setBorder(new EmptyBorder(20,0,20,0));
+                gold.setText(currentGnoxi.getGold()+"g");
+                gold.setVerticalTextPosition(JLabel.CENTER);
+                gold.setFont(new Font("Arial", Font.BOLD, 20));
                 gold.setIcon(goldIcon);
+
 
                 JLabel gnoxi1 = new JLabel();                            //gnoxi label
                 gnoxi1.setIcon(gnoxiIcon);
@@ -86,7 +95,6 @@ public class GUI{
                 hungerStat.setHorizontalTextPosition(JLabel.CENTER);
                 hungerStat.setFont(new Font("Arial", Font.BOLD, 12));
                 hungerStat.setIcon(hungerIcon);
-                //hungerStat.setBounds(100,50,50,50);
 
 
                 JLabel happinessStat = new JLabel();
@@ -95,7 +103,6 @@ public class GUI{
                 happinessStat.setHorizontalTextPosition(JLabel.CENTER);
                 happinessStat.setFont(new Font("Arial", Font.BOLD, 12));
                 happinessStat.setIcon(happinessIcon);
-                //happinessStat.setBounds(250,50,50,50);
 
 
                 JLabel energyStat = new JLabel();
@@ -104,14 +111,11 @@ public class GUI{
                 energyStat.setHorizontalTextPosition(JLabel.CENTER);
                 energyStat.setFont(new Font("Arial", Font.BOLD, 12));
                 energyStat.setIcon(energyIcon);
-                //energyStat.setBounds(350,50,50,50);
-
-
 
                                                //PANELS
 
-
-                JPanel Shop = new JPanel();                                 //Shop panel
+                JPanel Shop = new JPanel();
+                Shop.setBackground(ColorUIResource.WHITE);//Shop panel
                 Shop.setLayout(new GridLayout(6,1));
                 Shop.add(item1);
                 Shop.add(item2);
@@ -119,17 +123,15 @@ public class GUI{
                 Shop.add(item4);
                 Shop.add(item5);
                 Shop.add(item6);
-               //Shop.add(gold, GridLayout);
+
 
 
                 JPanel StatusField = new JPanel();                          //Status field panel
-                StatusField.setBackground(ColorUIResource.WHITE);
+                StatusField.setBackground(ColorUIResource.PINK);
                 StatusField.add(hungerStat);
                 StatusField.add(happinessStat);
                 StatusField.add(energyStat);
-               // StatusField.add(gold);
                 StatusField.setLayout(new FlowLayout(FlowLayout.CENTER,50,0));
-
 
 
 
@@ -138,17 +140,35 @@ public class GUI{
                 Gnoxi.add(gnoxi1);
 
                 JPanel Interaction = new JPanel();                          //Interaction panel
-                Interaction.setBackground(ColorUIResource.white);
+                Interaction.setBackground(ColorUIResource.PINK);
                 Interaction.add(sleep);
                 Interaction.add(clean);
                 Interaction.add(feed);
                 Interaction.setLayout(new FlowLayout(FlowLayout.CENTER,50,0));
 
                 JPanel GnoxiPanel = new JPanel();
-                GnoxiPanel.setLayout(new GridLayout(3,1));
-                GnoxiPanel.add(StatusField);
-                GnoxiPanel.add(Gnoxi);
-                GnoxiPanel.add(Interaction);
+                GnoxiPanel.setLayout(new GridBagLayout());
+                GnoxiPanel.setBackground((ColorUIResource.PINK));
+                GridBagConstraints d = new GridBagConstraints();
+                GnoxiPanel.setBorder(new EmptyBorder(20,10,10,10));
+                d.weighty = 0.1;
+                d.fill = GridBagConstraints.VERTICAL;
+                d.gridx = 0;
+                d.gridy = 1;
+                d.ipady=30;
+                GnoxiPanel.add(StatusField,d);
+                d.weighty = 0.5;
+                d.fill = GridBagConstraints.VERTICAL;
+                d.gridx = 0;
+                d.gridy = 2;
+                d.ipady=40;
+                GnoxiPanel.add(Gnoxi,d);
+                d.ipady=10;
+                d.weighty = 0.1;
+                d.fill = GridBagConstraints.VERTICAL;
+                d.gridx = 0;
+                d.gridy = 3;
+                GnoxiPanel.add(Interaction,d);
 
                                                 //FRAME
                 JFrame frame = new JFrame("GnoxiWorld");               //Main frame
@@ -160,10 +180,24 @@ public class GUI{
                 frame.setVisible(true);
                 frame.setLayout(new GridBagLayout());
                 GridBagConstraints c = new GridBagConstraints();
-                frame.add(GnoxiPanel);
-                frame.add(Shop);
-                c.gridx = 2;
-                c.gridwidth = 1;
+                c.weightx = 0.5;
+                c.weighty = 1;
+                c.fill = GridBagConstraints.HORIZONTAL;
+                c.gridx = 0;
+                c.gridheight=3;
+                frame.add(GnoxiPanel,c);
+                c.gridheight=1;
+                c.weighty = 0;
+                c.weightx = 0.1;
+                c.gridx = 3;
+                c.gridy = 1;
+                c.fill = GridBagConstraints.HORIZONTAL;
+                frame.add(Shop,c);
+                c.gridy = 0;
+                d.ipady=0;
+                c.gridx = 3;
+                c.fill = GridBagConstraints.CENTER;
+                frame.add(gold,c);
 
         }
 

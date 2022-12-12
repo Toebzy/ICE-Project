@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileIO {
@@ -13,6 +12,22 @@ public class FileIO {
             throw new RuntimeException(e);
         }
     }
+
+   public static int getGold() {
+
+       String[] values = new String[0];
+       try {
+           Scanner scan = new Scanner(gnoxiFile);
+           scan.nextLine();
+           values = scan.nextLine().split(",");
+
+       } catch (IOException e) {
+           System.out.println(e);
+       }
+       return Integer.parseInt(values[7]);
+   }
+
+
 
     public static void checkForGnoxi() {
         if (scan.hasNextLine()) {

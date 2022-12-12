@@ -5,6 +5,8 @@ class Gnoxi
 class GUI
 class Main
 class Menu
+class Shop
+class ButtonHandler
 
 Main : new Menu()
 
@@ -15,25 +17,37 @@ Gnoxi : doPoop()
 Gnoxi : getAge()
 Gnoxi : randomEvent()
 
-GUI : new Gnoxi(nameQuery)
-GUI : JFrame "Title"
-GUI : JPanel
+GUI : newGnoxi()
+GUI : oldGnoxi()
+GUI : ImageIcons
+GUI : JButtons
+GUI : JLabels
+GUI : JPanels
+GUI : JFrames
 
+Menu : Menu()
+Menu : musicPlayer(title)
 Menu : startGame
 Menu : exitGame
-Menu : Menu()
 Menu : ButtonHandler
+Menu : menuFrame
+
+ButtonHandler : actionPerformed()
 
 FileIO : checkForGnoxi()
 FileIO : writeGnoxiToCSV()
 FileIO : writeWithoutOverwrite()
 
-Main --> Menu
-Menu --> GUI
+Shop : Shopitems 1-6
+Shop : buy()
 
+Main --> Menu
+Menu --> FileIO
+Menu --> ButtonHandler
+FileIO --> GUI
 GUI --> Gnoxi
-GUI --> FileIO
-Gnoxi --> FileIO
+GUI --> Shop
+
 
 
 
