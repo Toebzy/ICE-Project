@@ -18,13 +18,6 @@ public class Calculator {
         int newHapiness = (int)Math.round(hapiness - (fileIO.getTimeDifference() /1000/60/601.38888888889));
         return newHapiness;
     }
-
-    public static int calcPoop(int poop)
-    {
-        int newPoop = (int)Math.round(poop + (fileIO.getTimeDifference() /1000/60/601.38888888889));
-        return newPoop;
-    }
-
     public static int calcEnergy(int energy)
     {
         int newEnergy = (int)Math.round(energy - (fileIO.getTimeDifference() /1000/60/601.38888888889));

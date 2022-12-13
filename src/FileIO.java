@@ -13,10 +13,6 @@ public class FileIO {
         }
     }
 
-
-
-
-
     public static void checkForGnoxi() {
         if (scan.hasNextLine()) {
             GUI.oldGnoxi();
@@ -29,8 +25,8 @@ public class FileIO {
     public static void writeGnoxi(Gnoxi p) {
         try {
             FileWriter writer = new FileWriter("Data/GnoxiData.csv");
-            writer.write("name, age, happiness, hunger, poop, energy, birthDate, gold");
-            writer.write("\n" + p.getName() + ",0,100,100,0,100," + System.currentTimeMillis()+",500");
+            writer.write("name, age, happiness, hunger, energy, birthDate, gold, isSleeping, closingTime");
+            writer.write("\n" + p.getName() + ",0,100,100,100," + System.currentTimeMillis()+",500,false");
             writer.close();
         } catch (IOException e) {
             System.out.println(e);
@@ -39,7 +35,7 @@ public class FileIO {
     public static Gnoxi createOldGnoxi() {
         scan.nextLine();
         String[] values = scan.nextLine().split(",");
-        Gnoxi p = new Gnoxi(values[0], Calculator.calcAge(Integer.parseInt(values[1])), Calculator.calcHapiness(Integer.parseInt(values[2])), Calculator.calcHunger(Integer.parseInt(values[3])), Calculator.calcPoop(Integer.parseInt(values[4])), Calculator.calcEnergy(Integer.parseInt(values[5])), Long.parseLong(values[6]), Integer.parseInt(values[7]));
+        Gnoxi p = new Gnoxi(values[0], Calculator.calcAge(Integer.parseInt(values[1])), Calculator.calcHapiness(Integer.parseInt(values[2])), Calculator.calcHunger(Integer.parseInt(values[3])), Calculator.calcEnergy(Integer.parseInt(values[4])), Long.parseLong(values[5]), Integer.parseInt(values[6]),Boolean.parseBoolean(values[7]));
         return p;
     }
     public long getTimeDifference() {

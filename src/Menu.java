@@ -12,15 +12,14 @@ public class Menu extends JFrame {
     private JButton startGameButton;
     private JButton exitGameButton;
     private JButton settingsButton;
-
-
+    private JFrame menuFrame;
 
     public Menu(){
 
         ImageIcon icon = new ImageIcon("Media/gnoxiIcon.png");
         ImageIcon gnoxiHeader = new ImageIcon("Media/gnoxiHeader.png");
 
-        JFrame menuFrame = new JFrame("GnoxiWorld");
+        menuFrame = new JFrame("GnoxiWorld");
 
         startGameButton = new JButton("Start Game");                        //start-game button
         startGameButton.setBounds(100, 240, 275, 50);
@@ -44,7 +43,7 @@ public class Menu extends JFrame {
         gnoxiHead.setIcon(gnoxiHeader);
         gnoxiHead.setBackground(ColorUIResource.WHITE);
         gnoxiHead.setText("G N O X I W O R L D");
-        gnoxiHead.setFont(new Font("Segoe Print", Font.BOLD, 20));
+        gnoxiHead.setFont(new Font("Arial", Font.BOLD, 20));
         gnoxiHead.setVerticalTextPosition(JLabel.TOP);
         gnoxiHead.setHorizontalTextPosition(JLabel.CENTER);
         gnoxiHead.setBounds(120, 30, 250, 190);
@@ -52,6 +51,7 @@ public class Menu extends JFrame {
 
         menuFrame.setIconImage(icon.getImage());                               //menu frame
         menuFrame.setSize(500, 500);
+        menuFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         menuFrame.setResizable(false);
         menuFrame.setLocationRelativeTo(null);
         menuFrame.add(startGameButton);
@@ -63,9 +63,6 @@ public class Menu extends JFrame {
 
         ButtonHandler handler = new ButtonHandler();                           //button handling
         startGameButton.addActionListener(handler);
-        startGameButton.addActionListener(e ->{
-        menuFrame.dispose();
-        });
         settingsButton.addActionListener(handler);
         settingsButton.addActionListener(e ->{
             menuFrame.dispose();
@@ -78,34 +75,101 @@ public class Menu extends JFrame {
     private JButton resetButton;
     private JFrame settingsFrame;
     public void settings(){
-        returnButton = new JButton();
+        ImageIcon logo = new ImageIcon("Media/gnoxiIcon.png");
+
+        returnButton = new JButton("Return to Menu");
         musicButton = new JButton();
-        resetButton = new JButton();
+        resetButton = new JButton("Reset Progress");
+        JLabel titleText = new JLabel();
+
+        titleText.setBounds(70,100,400,50);
+        titleText.setText("S E T T I N G S");
+        titleText.setFont(new Font("Arial", Font.BOLD, 50));
+
+        returnButton.setBounds(100, 320, 275, 50);
+        returnButton.setFont(new Font("Arial", Font.BOLD, 15));
+        returnButton.setBackground(Color.white);
+        returnButton.setFocusPainted(false);
+
+        musicButton.setBounds(100, 200, 275, 50);
+        musicButton.setText("Music: ON");
+        musicButton.setFont(new Font("Arial", Font.BOLD, 15));
+        musicButton.setBackground(Color.white);
+        musicButton.setFocusPainted(false);
+
+        resetButton.setBounds(100, 260, 275, 50);
+        resetButton.setFont(new Font("Arial", Font.BOLD, 15));
+        resetButton.setBackground(Color.white);
+        resetButton.setFocusPainted(false);
+
+        ButtonHandler handler = new ButtonHandler();
+        returnButton.addActionListener(handler);
+        musicButton.addActionListener(handler);
+        resetButton.addActionListener(handler);
+
+
         settingsFrame = new JFrame();
+        settingsFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        settingsFrame.setIconImage(logo.getImage());
+        settingsFrame.setSize(500, 500);
+        settingsFrame.setResizable(false);
+        settingsFrame.setLocationRelativeTo(null);
+        settingsFrame.setVisible(true);
+        settingsFrame.setTitle("Settings");
+        settingsFrame.add(returnButton);
+        settingsFrame.add(musicButton);
+        settingsFrame.add(resetButton);
+        settingsFrame.add(titleText);
+        settingsFrame.setLayout(null);
 
 
     }
 
 
-
-    public static void musicPlayer(String title){                              //music handling
+    private static Clip clip;
+    private int onOff = 1;
+        public static void musicPlayer(String title){                              //music handling
+         if (clip != null && clip.isRunning()) { clip.stop(); }
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("Media/OST/"+title+".wav").getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);   //loops the music
-            clip.start();
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("Media/OST/" + title + ".wav").getAbsoluteFile());
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.loop(Clip.LOOP_CONTINUOUSLY);   //loops the music
 
-        } catch(Exception ex) {
-            System.out.println("Error with playing sound.");
-            ex.printStackTrace();
-        }
+        } catch (Exception ex) {
+                System.out.println("Error with playing sound.");
+                ex.printStackTrace();
+            }
     }
 
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+
+            if (e.getSource()==returnButton){
+                settingsFrame.dispose();
+                new Menu();
+            }
+            if (e.getSource()==resetButton){
+                GUI.newGnoxi();
+                settingsFrame.dispose();
+            }
+            if (e.getSource()==musicButton){
+                if (onOff==1){
+                    musicButton.setText("Music: OFF");
+                    musicButton.repaint();
+                    clip.stop();
+                    onOff = 0;
+                }
+                else {
+                    musicButton.setText("Music: ON");
+                    musicButton.repaint();
+                    clip.loop(Clip.LOOP_CONTINUOUSLY);
+                    onOff = 1;
+                }
+            }
             if (e.getSource() == startGameButton) {
                 FileIO.checkForGnoxi();
+                menuFrame.dispose();
             }
             if (e.getSource() == exitGameButton) {
                 System.exit(0);
