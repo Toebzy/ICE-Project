@@ -1,34 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee529eee-ef1b-4462-bb64-1bfa9b478e70" name="Changes" comment="" />
+    <list default="true" id="ccea1ab6-ff1e-4186-b7e6-5dbaee5f91c2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectId" id="2IaEMFQ1M9LAVqHnpvDMFUIB6mm" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="UML Sequence" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2IaEOSIczOxe2x0iU0wVJxKu2PR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/tobia/IdeaProjects/gUI"
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "last_opened_file_path": "C:/Users/tobia/IdeaProjects/ICE-Project",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\tobia\IdeaProjects\ICE-Project\media" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="GUI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gui" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="gui" />
+      <module name="GUI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.gui" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ee529eee-ef1b-4462-bb64-1bfa9b478e70" name="Changes" comment="" />
-      <created>1670411244018</created>
+      <changelist id="ccea1ab6-ff1e-4186-b7e6-5dbaee5f91c2" name="Changes" comment="" />
+      <created>1670411262125</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1670411244018</updated>
-      <workItem from="1670411245547" duration="17000" />
+      <updated>1670411262125</updated>
+      <workItem from="1670411263368" duration="662000" />
+      <workItem from="1670411945410" duration="3135000" />
+      <workItem from="1670584450134" duration="2422000" />
+      <workItem from="1670586904173" duration="17567000" />
+      <workItem from="1670624641175" duration="3732000" />
+      <workItem from="1670688987721" duration="28841000" />
+      <workItem from="1670779144564" duration="5020000" />
+      <workItem from="1670795719094" duration="3250000" />
+      <workItem from="1670846555106" duration="37569000" />
+      <workItem from="1670929563528" duration="3462000" />
+      <workItem from="1670933099240" duration="11000" />
+      <workItem from="1670933325789" duration="6177000" />
     </task>
     <servers />
   </component>
