@@ -14,6 +14,7 @@ public class Gnoxi {
     private boolean sleeping;
 
 
+
     public int getGold() {
         return gold;
     }
@@ -61,7 +62,7 @@ public class Gnoxi {
         this.sleeping = sleeping;
     }
 
-    public Gnoxi(String name, int age, int happiness, int hunger, int energy, long birthDate, int gold, boolean sleeping) {
+    public Gnoxi(String name, int age, int happiness, int hunger, int energy, long birthDate, int gold, boolean sleeping, String gnoxiType) {
 
         this.name = name;
         this.age = age;
@@ -71,43 +72,43 @@ public class Gnoxi {
         this.birthDate = birthDate;
         this.gold = gold;
         this.sleeping=sleeping;
+        this.gnoxiType=gnoxiType;
 
     }
 
     public static String gnoxiType(){
         int i = (int) (Math.random()*10);
         if(i==1 || i==2 || i==3){
-            return ("Media/Gnoxi/gnoxiDuck.png"); //30%
+            return ("gnoxiDuck"); //30%   (39%total)
         }
         if(i==4 || i==5 || i==6 || i==7){
-            return ("Media/Gnoxi/gnoxiBear.png");   //40%     (49%total)
+            return ("gnoxiBear");   //40%
         }
         if(i==8){
-
             int k = (int) (Math.random()*10);
             if(k==10) {
-                return ("Media/Gnoxi/gnoxiGnoxi.png"); //1%
+                return ("gnoxiGnoxi"); //1%
             }               //easter egg
             else{
-                return ("Media/Gnoxi/gnoxiBear.png");   //9%
+                return ("gnoxiDuck");   //9%
             }
         }
-        return ("Media/Gnoxi/gnoxiRabbit.png");     //20%
+        return ("gnoxiRabbit");     //20%
     }
 
 
     public int getAge() {
-        long a = (System.currentTimeMillis() - this.birthDate) / 1000;
-        int currentAge = (int) a / 60 / 60 / 24;
-        return currentAge;
+
+        return age;
+
     }
 
     static class Shutdown extends Thread{
         public void run() {
             try {
                 FileWriter writer = new FileWriter("Data/GnoxiData.csv");
-                writer.write("name, age, happiness, hunger, energy, birthDate, gold, isSleeping, closingTime");
-                writer.write("\n"+ GUI.currentGnoxi.name+ "," +GUI.currentGnoxi.age+","+GUI.currentGnoxi.happiness+","+GUI.currentGnoxi.hunger+","+GUI.currentGnoxi.energy+"," + GUI.currentGnoxi.birthDate + ","+ GUI.currentGnoxi.gold+","+GUI.currentGnoxi.sleeping+"," + System.currentTimeMillis());
+                writer.write("name, age, happiness, hunger, energy, birthDate, gold, isSleeping, gnoxiType, closingTime");
+                writer.write("\n"+ GUI.currentGnoxi.name+ "," +GUI.currentGnoxi.age+","+GUI.currentGnoxi.happiness+","+GUI.currentGnoxi.hunger+","+GUI.currentGnoxi.energy+"," + GUI.currentGnoxi.birthDate + ","+ GUI.currentGnoxi.gold+","+GUI.currentGnoxi.sleeping+"," + GUI.currentGnoxi.gnoxiType + "," + System.currentTimeMillis());
                 writer.close();
             } catch (IOException e) {
                 System.out.println(e);

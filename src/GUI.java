@@ -24,6 +24,8 @@ public class GUI{
         private JButton item6;
         private JButton randPoop;
         private JButton sleep;
+        private JButton menuBack;
+        private JButton aboutInfo;
         private JLabel bowLabel;
         private JLabel gold;
 
@@ -33,7 +35,7 @@ public class GUI{
 
         public static void newGnoxi(){            //asks user to input name
                 String nameQuery = JOptionPane.showInputDialog("Enter the name of your Gnoxi");
-                Gnoxi currentGnoxi = new Gnoxi(nameQuery, 0, 100, 100, 100, System.currentTimeMillis(), 500,false);      //creates new gnoxi
+                Gnoxi currentGnoxi = new Gnoxi(nameQuery, 0, 100, 100, 100, System.currentTimeMillis(), 500,false, Gnoxi.gnoxiType());      //creates new gnoxi
                 FileIO.writeGnoxi(currentGnoxi);  //saves gnoxi to CSV
                 new GUI(currentGnoxi);            //starts GUI
         }
@@ -45,9 +47,11 @@ public class GUI{
         public void death(){
                 gnoxiDie.setVisible(true);
 
-
-                int result = JOptionPane.showConfirmDialog(frame, "       Your Gnoxi has died \n        Start new game?","Death",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                
+                int result = JOptionPane.showConfirmDialog(item3, "Your Gnoxi has died, it was alive for " +
+                                Calculator.calcAge(currentGnoxi.getAge())+
+                                " days \n                 Start new game?", "Death",
+                                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
                 if(result == JOptionPane.YES_OPTION){
                         newGnoxi();
@@ -63,7 +67,10 @@ public class GUI{
         public GUI(Gnoxi currentGnoxi) {
                 this.currentGnoxi=currentGnoxi;
 
-                Menu.musicPlayer("Limerence");
+
+                if(Menu.onOff == 1) {
+                        Menu.musicPlayer("Limerence");
+                }
 
                 //ICONS
 
@@ -72,8 +79,10 @@ public class GUI{
                 ImageIcon energyIcon = new ImageIcon("Media/StatusBars/energy.png");              //energy
                 ImageIcon goldIcon = new ImageIcon("Media/ShopIcons/goldIcon.png");               //gold
                 ImageIcon logoIcon = new ImageIcon("Media/gnoxiIcon.png");                        //logo
-                ImageIcon gnoxiIcon = new ImageIcon(Gnoxi.gnoxiType());                                   //Gnoxi
+                ImageIcon gnoxiIcon = new ImageIcon("Media/Gnoxi/"+currentGnoxi.gnoxiType+".png");                                   //Gnoxi
                 ImageIcon sleepIcon = new ImageIcon("Media/Interaction/sleepIcon.png");           //sleep
+                ImageIcon aboutIcon= new ImageIcon("Media/Interaction/aboutIcon.png");             //aboutInfo
+                ImageIcon backIcon = new ImageIcon("Media/Interaction/backIcon.png");             //back to menu
                 ImageIcon gnoxiSleep= new ImageIcon("Media/Gnoxi/gnoxiSleep.png");                //sleepThingg
                 ImageIcon poopIcon = new ImageIcon("Media/Gnoxi/gnoxiPoop.png");                  //poop
                 ImageIcon foodIcon = new ImageIcon("Media/ShopIcons/foodIcon.png");               //food1
@@ -93,6 +102,19 @@ public class GUI{
                 sleep.setBackground(ColorUIResource.WHITE);
                 sleep.setFocusPainted(false);
                 sleep.addActionListener(handler);
+
+                aboutInfo = new JButton();
+                aboutInfo.setIcon(aboutIcon);
+                aboutInfo.setBackground(ColorUIResource.WHITE);
+                aboutInfo.setFocusPainted(false);
+                aboutInfo.addActionListener(handler);
+
+                menuBack = new JButton();
+                menuBack.setIcon(backIcon);
+                menuBack.setBackground(ColorUIResource.WHITE);
+                menuBack.setFocusPainted(false);
+                menuBack.addActionListener(handler);
+
 
                 //SHOP BUTTONS
 
@@ -144,6 +166,10 @@ public class GUI{
                 item6.setFocusPainted(false);
 
                 //LABELS
+
+                JLabel infoLabel = new JLabel();
+                infoLabel.add(menuBack);
+                infoLabel.add(aboutInfo);
 
                 JLabel gold = new JLabel();
                 this.gold=gold;
@@ -256,7 +282,6 @@ public class GUI{
                 a.gridy = 1;
                 container.add(energyLabel,a);
                 container.add(progressBar3,a);
-
 
                 Thread incrementThread = new Thread(() -> {
                         while (currentGnoxi.getHunger()>0) {
@@ -524,7 +549,9 @@ public class GUI{
                         if (e.getSource()==sleep){
                                 if (currentGnoxi.getSleeping()){
 
-                                        Menu.musicPlayer("Cascade");
+                                        if(Menu.onOff==1) {
+                                                Menu.musicPlayer("Cascade");
+                                        }
                                         frame.setSize(700,500);
                                         currentGnoxi.setSleeping(false);
                                         sleepLabel.setVisible(false);
@@ -534,7 +561,9 @@ public class GUI{
                                 }
                                 else {
 
-                                        Menu.musicPlayer("It's okay");
+                                        if(Menu.onOff==1) {
+                                                Menu.musicPlayer("It's okay");
+                                        }
                                         frame.setSize(500,500);
                                         currentGnoxi.setSleeping(true);
                                         sleepLabel.setVisible(true);
@@ -547,6 +576,14 @@ public class GUI{
                         if (e.getSource() == randPoop){
                                 currentGnoxi.setGold(currentGnoxi.gold +=10);
                                 randPoop.setVisible(false);
+                        }
+
+                        if(e.getSource()==aboutInfo){
+                                //some info fr fr (tut kinda shit)
+                        }
+                        if(e.getSource()==menuBack){
+                                frame.dispose();
+                                new Menu ();
                         }
 
                         if (e.getSource() == item1) {

@@ -82,22 +82,22 @@ public class Menu extends JFrame {
         resetButton = new JButton("Reset Progress");
         JLabel titleText = new JLabel();
 
-        titleText.setBounds(70,100,400,50);
+        titleText.setBounds(65,100,400,50);
         titleText.setText("S E T T I N G S");
         titleText.setFont(new Font("Arial", Font.BOLD, 50));
 
-        returnButton.setBounds(100, 320, 275, 50);
+        returnButton.setBounds(100, 300, 275, 50);
         returnButton.setFont(new Font("Arial", Font.BOLD, 15));
         returnButton.setBackground(Color.white);
         returnButton.setFocusPainted(false);
 
-        musicButton.setBounds(100, 200, 275, 50);
+        musicButton.setBounds(100, 180, 275, 50);
         musicButton.setText("Music: ON");
         musicButton.setFont(new Font("Arial", Font.BOLD, 15));
         musicButton.setBackground(Color.white);
         musicButton.setFocusPainted(false);
 
-        resetButton.setBounds(100, 260, 275, 50);
+        resetButton.setBounds(100, 240, 275, 50);
         resetButton.setFont(new Font("Arial", Font.BOLD, 15));
         resetButton.setBackground(Color.white);
         resetButton.setFocusPainted(false);
@@ -127,7 +127,7 @@ public class Menu extends JFrame {
 
 
     private static Clip clip;
-    private int onOff = 1;
+    public static int onOff = 1;
         public static void musicPlayer(String title){                              //music handling
          if (clip != null && clip.isRunning()) { clip.stop(); }
         try {
