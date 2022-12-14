@@ -11,6 +11,9 @@ public class GUI{
         static Gnoxi currentGnoxi;
         private final JLabel sleepLabel;
         private final JLabel gnoxiDie;
+        private JProgressBar progressBar;
+        private JProgressBar progressBar2;
+        private JProgressBar progressBar3;
         private JPanel shopPanel;
         private JPanel GnoxiPanel;
         private JPanel gnoxi;
@@ -27,17 +30,29 @@ public class GUI{
         private JButton menuBack;
         private JButton aboutInfo;
         private JLabel bowLabel;
+        private JLabel tophatLabel;
+        private JLabel scarfLabel;
         private JLabel gold;
 
         private ImageIcon shopBow2;
+        private ImageIcon scarfIcon2;
+        private ImageIcon topHatIcon2;
         private JFrame frame;
 
 
         public static void newGnoxi(){            //asks user to input name
                 String nameQuery = JOptionPane.showInputDialog("Enter the name of your Gnoxi");
-                Gnoxi currentGnoxi = new Gnoxi(nameQuery, 0, 100, 100, 100, System.currentTimeMillis(), 500,false, Gnoxi.gnoxiType());      //creates new gnoxi
-                FileIO.writeGnoxi(currentGnoxi);  //saves gnoxi to CSV
-                new GUI(currentGnoxi);            //starts GUI
+                if(nameQuery == null || (nameQuery != null && ("".equals(nameQuery))))
+                {
+                        new Menu();
+                }
+                else {
+                        Gnoxi currentGnoxi = new Gnoxi(nameQuery, 0, 100, 100, 100, System.currentTimeMillis(), 500, false, Gnoxi.gnoxiType(), false, false, false);      //creates new gnoxi
+                        FileIO.writeGnoxi(currentGnoxi);  //saves gnoxi to CSV
+                        new GUI(currentGnoxi);            //starts GUI
+                }
+
+
         }
 
         public static void oldGnoxi(){
@@ -45,9 +60,8 @@ public class GUI{
                 new GUI(currentGnoxi);
         }
         public void death(){
+                Gnoxi.save();
                 gnoxiDie.setVisible(true);
-
-                
                 int result = JOptionPane.showConfirmDialog(item3, "Your Gnoxi has died, it was alive for " +
                                 Calculator.calcAge(currentGnoxi.getAge())+
                                 " days \n                 Start new game?", "Death",
@@ -56,40 +70,50 @@ public class GUI{
                 if(result == JOptionPane.YES_OPTION){
                         newGnoxi();
                         frame.dispose();
-
-
                 }
                 if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION){
                         new Menu();
                         frame.dispose();
                 }
+                frame.dispose();
         }
         public GUI(Gnoxi currentGnoxi) {
                 this.currentGnoxi=currentGnoxi;
 
 
                 if(Menu.onOff == 1) {
-                        Menu.musicPlayer("Limerence");
+                        Menu.musicPlayer("Cascade");
                 }
 
                 //ICONS
 
-                ImageIcon happinessIcon = new ImageIcon("Media/StatusBars/happiness.png");        //happiness
-                ImageIcon hungerIcon = new ImageIcon("Media/StatusBars/hunger.png");              //hunger
-                ImageIcon energyIcon = new ImageIcon("Media/StatusBars/energy.png");              //energy
-                ImageIcon goldIcon = new ImageIcon("Media/ShopIcons/goldIcon.png");               //gold
-                ImageIcon logoIcon = new ImageIcon("Media/gnoxiIcon.png");                        //logo
-                ImageIcon gnoxiIcon = new ImageIcon("Media/Gnoxi/"+currentGnoxi.gnoxiType+".png");                                   //Gnoxi
-                ImageIcon sleepIcon = new ImageIcon("Media/Interaction/sleepIcon.png");           //sleep
+                ImageIcon happinessIcon = new ImageIcon("Media/StatusBars/happiness.png");         //happiness
+                ImageIcon hungerIcon = new ImageIcon("Media/StatusBars/hunger.png");               //hunger
+                ImageIcon energyIcon = new ImageIcon("Media/StatusBars/energy.png");               //energy
+                ImageIcon goldIcon = new ImageIcon("Media/ShopIcons/goldIcon.png");                //gold
+                ImageIcon logoIcon = new ImageIcon("Media/gnoxiIcon.png");                         //logo
+                ImageIcon gnoxiIcon = new ImageIcon("Media/Gnoxi/"+currentGnoxi.gnoxiType+".png"); //Gnoxi
+                ImageIcon gnoxiTophat = new ImageIcon("Media/Gnoxi/gnoxiTophat.png");              //Gnoxi top hat
+                ImageIcon gnoxiScarf = new ImageIcon("Media/Gnoxi/gnoxiScarf.png");                //Gnoxi scarf
+                ImageIcon sleepIcon = new ImageIcon("Media/Interaction/sleepIcon.png");            //sleep
                 ImageIcon aboutIcon= new ImageIcon("Media/Interaction/aboutIcon.png");             //aboutInfo
-                ImageIcon backIcon = new ImageIcon("Media/Interaction/backIcon.png");             //back to menu
-                ImageIcon gnoxiSleep= new ImageIcon("Media/Gnoxi/gnoxiSleep.png");                //sleepThingg
-                ImageIcon poopIcon = new ImageIcon("Media/Gnoxi/gnoxiPoop.png");                  //poop
-                ImageIcon foodIcon = new ImageIcon("Media/ShopIcons/foodIcon.png");               //food1
-                ImageIcon energyDrinkIcon = new ImageIcon("Media/ShopIcons/energyDrinkIcon.png"); //energy drink
-                ImageIcon shopBow = new ImageIcon("Media/ShopIcons/shopBow.png");                 //shop bow
-                ImageIcon shopBow2 = new ImageIcon("Media/ShopIcons/shopBow2.png");               //shop bow2
-                ImageIcon gnoxiDead= new ImageIcon("Media/Gnoxi/gnoxiDead.png");            //dead
+                ImageIcon backIcon = new ImageIcon("Media/Interaction/backIcon.png");              //back to menu
+                ImageIcon gnoxiSleep= new ImageIcon("Media/Gnoxi/gnoxiSleep.png");                 //sleepThingg
+                ImageIcon poopIcon = new ImageIcon("Media/Gnoxi/gnoxiPoop.png");                   //poop
+                ImageIcon foodIcon = new ImageIcon("Media/ShopIcons/foodIcon.png");                //food1
+                ImageIcon energyDrinkIcon = new ImageIcon("Media/ShopIcons/energyDrinkIcon.png");  //energy drink
+                ImageIcon shopBow = new ImageIcon("Media/ShopIcons/shopBow.png");                  //shop bow
+                ImageIcon shopBow2 = new ImageIcon("Media/ShopIcons/shopBow2.png");                //shop bow2
+                ImageIcon gnoxiDead= new ImageIcon("Media/Gnoxi/gnoxiDead.png");                   //dead
+                ImageIcon lollipop= new ImageIcon("Media/ShopIcons/lollipop.png");                 //lollipop
+                ImageIcon topHatIcon= new ImageIcon("Media/ShopIcons/topHatIcon.png");             //topHat
+                ImageIcon topHatIcon2= new ImageIcon("Media/ShopIcons/topHatIcon2.png");           //topHat2
+                ImageIcon scarfIcon= new ImageIcon("Media/ShopIcons/scarfIcon.png");               //scarf
+                ImageIcon scarfIcon2= new ImageIcon("Media/ShopIcons/scarfIcon2.png");             //scarf2
+                ImageIcon borderTest= new ImageIcon("Media/borderTest.png");                       //scarf
+
+                this.scarfIcon2 = scarfIcon2;
+                this.topHatIcon2 = topHatIcon2;
                 this.shopBow2 = shopBow2;
 
                 ButtonHandler handler = new ButtonHandler();
@@ -106,13 +130,16 @@ public class GUI{
                 aboutInfo = new JButton();
                 aboutInfo.setIcon(aboutIcon);
                 aboutInfo.setBackground(ColorUIResource.WHITE);
+                aboutInfo.setOpaque(false);
                 aboutInfo.setFocusPainted(false);
+                aboutInfo.setBorderPainted(false);
                 aboutInfo.addActionListener(handler);
 
                 menuBack = new JButton();
                 menuBack.setIcon(backIcon);
                 menuBack.setBackground(ColorUIResource.WHITE);
                 menuBack.setFocusPainted(false);
+                menuBack.setBorderPainted(false);
                 menuBack.addActionListener(handler);
 
 
@@ -126,7 +153,7 @@ public class GUI{
                 item1.setVerticalTextPosition(JLabel.CENTER);
                 item1.addActionListener(handler);
                 item1.setText("Food: 5g");
-                item1.setToolTipText("15+ food");
+                item1.setToolTipText("10+ food");
                 item1.setFocusPainted(false);
 
                 JButton item2 = new JButton();
@@ -136,40 +163,55 @@ public class GUI{
                 item2.setVerticalTextPosition(JLabel.CENTER);
                 item2.addActionListener(handler);
                 item2.setText("Drink: 15g");
-                item2.setToolTipText("15+ energy");
+                item2.setToolTipText("10+ energy");
                 item2.setFocusPainted(false);
 
                 JButton item3 = new JButton();
                 this.item3 = item3;
+                item3.setIcon(lollipop);
                 item3.addActionListener(handler);
                 item3.setBackground(ColorUIResource.WHITE);
+                item3.setText("Lollipop: 25g");
+                item3.setToolTipText("5+ happiness");
                 item3.setFocusPainted(false);
 
                 JButton item4 = new JButton();
                 this.item4 = item4;
                 item4.setBackground(ColorUIResource.WHITE);
+                item4.setIcon(shopBow);
+                item4.setVerticalTextPosition(JLabel.CENTER);
+                item4.addActionListener(handler);
+                item4.setText("Bow: 500g");
+                item4.setToolTipText("adds a pretty lil' bow");
                 item4.setFocusPainted(false);
 
                 JButton item5 = new JButton();
                 this.item5 = item5;
+                item5.setIcon(topHatIcon);
+                item5.setText("Top hat: 800g");
+                item5.setToolTipText("adds a classy top hat");
                 item5.setBackground(ColorUIResource.WHITE);
-                item5.setIcon(shopBow);
-                item5.setVerticalTextPosition(JLabel.CENTER);
-                item5.addActionListener(handler);
-                item5.setText("Bow: 500g");
-                item5.setToolTipText("adds a pretty lil' bow");
                 item5.setFocusPainted(false);
+                item5.addActionListener(handler);
 
                 JButton item6 = new JButton();
                 this.item6 = item6;
+                item6.setIcon(scarfIcon);
+                item6.setText("Scarf: 1200g");
+                item6.setToolTipText("adds a warm & comfy scarf");
+                item6.addActionListener(handler);
                 item6.setBackground(ColorUIResource.WHITE);
                 item6.setFocusPainted(false);
 
                 //LABELS
 
                 JLabel infoLabel = new JLabel();
+                infoLabel.setLayout(new GridLayout(1,2));
+                infoLabel.setBorder(new EmptyBorder(10,0,0,0));
                 infoLabel.add(menuBack);
                 infoLabel.add(aboutInfo);
+                infoLabel.setVisible(true);
+
 
                 JLabel gold = new JLabel();
                 this.gold=gold;
@@ -178,7 +220,7 @@ public class GUI{
                 gold.setBackground(ColorUIResource.WHITE);
                 gold.setText(currentGnoxi.getGold()+"g");
                 gold.setVerticalTextPosition(JLabel.CENTER);
-                gold.setFont(new Font("Arial", Font.BOLD, 20));
+                gold.setFont(new Font("Consolas", Font.BOLD, 20));
                 gold.setIcon(goldIcon);
 
 
@@ -192,19 +234,19 @@ public class GUI{
 
                 JLabel hungerStat = new JLabel();                       //STATUS LABELS
                 hungerStat.setText("Hunger");
-                hungerStat.setFont(new Font("Arial", Font.BOLD, 12));
+                hungerStat.setFont(new Font("Consolas", Font.BOLD, 12));
                 hungerStat.setForeground(Color.BLACK);
 
 
                 JLabel happinessStat = new JLabel();
                 happinessStat.setText("Happiness");
-                happinessStat.setFont(new Font("Arial", Font.BOLD, 12));
+                happinessStat.setFont(new Font("Consolas", Font.BOLD, 12));
                 happinessStat.setForeground(Color.BLACK);
 
 
                 JLabel energyStat = new JLabel();
                 energyStat.setText("Energy");
-                energyStat.setFont(new Font("Arial", Font.BOLD, 12));
+                energyStat.setFont(new Font("Consolas", Font.BOLD, 12));
                 energyStat.setForeground(Color.BLACK);
 
 
@@ -213,13 +255,15 @@ public class GUI{
                 JPanel shopPanel = new JPanel();
                 this.shopPanel=shopPanel;
                 shopPanel.setBackground(ColorUIResource.WHITE);//Shop panel
-                shopPanel.setLayout(new GridLayout(6,1));
+                shopPanel.setLayout(new GridLayout(7,1));
                 shopPanel.add(item1);
                 shopPanel.add(item2);
                 shopPanel.add(item3);
                 shopPanel.add(item4);
                 shopPanel.add(item5);
                 shopPanel.add(item6);
+                shopPanel.add(infoLabel);
+
 
 
 
@@ -227,7 +271,7 @@ public class GUI{
                 StatusField.setOpaque(false);
                 StatusField.setLayout(new GridBagLayout());
                 GridBagConstraints a = new GridBagConstraints();
-                a.insets = new Insets(5,40,0,40);
+                a.insets = new Insets(0,35,0,35);
                 a.anchor = GridBagConstraints.CENTER;
                 a.gridx = 0;
                 a.gridy = 0;
@@ -244,6 +288,7 @@ public class GUI{
                 hungerLabel.setIcon(hungerIcon);
                 hungerLabel.setOpaque(false);
                 JProgressBar progressBar = new JProgressBar();
+                this.progressBar=progressBar;
                 progressBar.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                 progressBar.setOpaque(false);
                 progressBar.setMaximum(100);
@@ -253,7 +298,11 @@ public class GUI{
                 JLabel happinessLabel = new JLabel();
                 happinessLabel.setIcon(happinessIcon);
                 happinessLabel.setOpaque(false);
+                JLabel borderLabel = new JLabel();
+                borderLabel.setIcon(borderTest);
+                happinessLabel.setOpaque(false);
                 JProgressBar progressBar2 = new JProgressBar();
+                this.progressBar2=progressBar2;
                 progressBar2.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                 progressBar2.setOpaque(false);
                 progressBar2.setOrientation(JProgressBar.VERTICAL);
@@ -263,6 +312,7 @@ public class GUI{
                 energyLabel.setIcon(energyIcon);
                 energyLabel.setOpaque(false);
                 JProgressBar progressBar3 = new JProgressBar();
+                this.progressBar3=progressBar3;
                 progressBar3.setBorder(BorderFactory.createLineBorder(Color.black, 2));
                 progressBar3.setOpaque(false);
                 progressBar3.setOrientation(JProgressBar.VERTICAL);
@@ -278,6 +328,7 @@ public class GUI{
                 a.gridy = 1;
                 container.add(happinessLabel,a);
                 container.add(progressBar2,a);
+                container.add(borderLabel,a);
                 a.gridx = 2;
                 a.gridy = 1;
                 container.add(energyLabel,a);
@@ -301,7 +352,7 @@ public class GUI{
                                 }
 
                                 try {
-                                        Thread.sleep(2000); // real milis 2592000
+                                        Thread.sleep(2000); // Pause the thread
                                 } catch (InterruptedException e) {
                                         // If the thread is interrupted, break out of the loop
                                         break;
@@ -372,6 +423,7 @@ public class GUI{
                 randPoop.setFocusPainted(false);
                 randPoop.setContentAreaFilled(false);
                 randPoop.setLayout(null);
+                randPoop.setOpaque(false);
                 randPoop.repaint();
                 randPoop.addActionListener(handler);
 
@@ -380,7 +432,31 @@ public class GUI{
                 JLabel bowLabel = new JLabel();
                 this.bowLabel = bowLabel;
                 bowLabel.setIcon(new ImageIcon("Media/Gnoxi/gnoxiBow.png"));
-                bowLabel.setVisible(false);
+                bowLabel.setVisible(currentGnoxi.isBow());
+                if(bowLabel.isVisible()){
+                        item4.setIcon(shopBow2);
+                        item4.repaint();
+                }
+
+                JLabel scarfLabel = new JLabel();
+                this.scarfLabel = scarfLabel;
+                scarfLabel.setVisible(false);
+                scarfLabel.setIcon(gnoxiScarf);
+                scarfLabel.setVisible(currentGnoxi.isScarf());
+                if(scarfLabel.isVisible()){
+                        item6.setIcon(scarfIcon2);
+                        item6.repaint();
+                }
+
+                JLabel tophatLabel = new JLabel();
+                this.tophatLabel = tophatLabel;
+                tophatLabel.setVisible(false);
+                tophatLabel.setIcon(gnoxiTophat);
+                tophatLabel.setVisible(currentGnoxi.isTophat());
+                if(tophatLabel.isVisible()){
+                        item5.setIcon(topHatIcon2);
+                        item5.repaint();
+                }
 
                 JLabel sleepLabel = new JLabel();
                 this.sleepLabel = sleepLabel;
@@ -402,6 +478,8 @@ public class GUI{
                 gnoxi.add(gnoxiDie);
                 gnoxiDie.setVisible(false);
                 gnoxi.add(bowLabel,q);
+                gnoxi.add(tophatLabel,q);
+                gnoxi.add(scarfLabel,q);
                 gnoxi.add(sleepLabel,q);
                 gnoxi.add(gnoxi1,q);
                 gnoxi.setBorder(new EmptyBorder(20,0,0,0));
@@ -415,7 +493,7 @@ public class GUI{
                         int int_randomX = randomX.nextInt(xMax);
                         while (currentGnoxi.getHunger()>0) {
                                 if(currentGnoxi.getHunger()>60&&!currentGnoxi.getSleeping()) {
-                                        randPoop.setBorder(new EmptyBorder(0, 260, 0, 0));
+                                        randPoop.setBorder(new EmptyBorder(0, 255, 0, 0));
                                         randPoop.setVisible(true);
                                 }
                                 try {
@@ -535,6 +613,9 @@ public class GUI{
                 c.gridx = 3;
                 c.fill = GridBagConstraints.CENTER;
                 frame.add(gold,c);
+                Container j = frame.getContentPane();
+
+                j.setBackground(ColorUIResource.WHITE);
 
                 if(currentGnoxi.getSleeping()){
                         sleepLabel.setVisible(true);
@@ -579,72 +660,130 @@ public class GUI{
                         }
 
                         if(e.getSource()==aboutInfo){
-                                //some info fr fr (tut kinda shit)
+                                death();
                         }
                         if(e.getSource()==menuBack){
                                 frame.dispose();
+                                Gnoxi.save();
+                                Menu.musicPlayer("Limerence");
                                 new Menu ();
                         }
 
                         if (e.getSource() == item1) {
 
-                                if (currentGnoxi.getHunger() == 100) {
-                                        return;
-                                }
-                                else if (currentGnoxi.getHunger() + 15 > 100) {
-                                        currentGnoxi.setHunger(100);
-                                        shop.buy(1);
-
-                                }
-                                else if(shop.buy(1)) {
-                                        currentGnoxi.setHunger(currentGnoxi.getHunger() + 15);
-                                }
-                                else if(!shop.buy(1)){
+                                if(!shop.buy(1)){
                                         JOptionPane.showMessageDialog(item1,"You dont have enough gold","Shop", JOptionPane.ERROR_MESSAGE);
                                 }
-                        }
-                        if (e.getSource() == item2) {
-                                if (currentGnoxi.getEnergy() == 100){
+                                else if (currentGnoxi.getHunger() == 100) {
                                         return;
                                 }
-                                else if (currentGnoxi.getEnergy()+15 > 100){
-                                        currentGnoxi.setEnergy(100);
-                                        shop.buy(2);
-                                }
-                                else if(shop.buy(2)) {
-                                        currentGnoxi.setEnergy(currentGnoxi.getEnergy()+15);
-                                }
-                                else if(!shop.buy(2)){
-                                        JOptionPane.showMessageDialog(item2,"You dont have enough gold","Shop", JOptionPane.ERROR_MESSAGE);
-                                }
-                        }
-                        if (e.getSource() == item3) {
-                                //shop.buy(3);
-                                death();
-                        }
-                        if (e.getSource() == item4) {
-                                shop.buy(4);
-                        }
-                        if (e.getSource() == item5) {
-                                if(!shop.buy(5)){
-                                        JOptionPane.showMessageDialog(item5,"You dont have enough gold","Shop", JOptionPane.ERROR_MESSAGE);
+                                else if (currentGnoxi.getHunger() + 10 > 100) {
+                                        currentGnoxi.setHunger(100);
+                                        progressBar.setValue(currentGnoxi.getHunger());
                                 }
                                 else {
-                                        if (bowLabel.isVisible()){
-                                                JOptionPane.showMessageDialog(item5,"Already owned","Shop", JOptionPane.ERROR_MESSAGE);
-                                                return;
+                                        currentGnoxi.setHunger(currentGnoxi.getHunger() + 10);
+                                        progressBar.setValue(currentGnoxi.getHunger());
+                                        System.out.println(item1.getSize());
+                                }
+
+                        }
+                        if (e.getSource() == item2) {
+
+                                if(!shop.buy(2)){
+                                        JOptionPane.showMessageDialog(item2,"You dont have enough gold","Shop", JOptionPane.ERROR_MESSAGE);
+                                }
+                                else if (currentGnoxi.getEnergy() == 100){
+                                        return;
+                                }
+                                else if (currentGnoxi.getEnergy()+10 > 100){
+                                        currentGnoxi.setEnergy(100);
+                                        progressBar3.setValue(currentGnoxi.getEnergy());
+
+                                }
+                                else {
+                                        currentGnoxi.setEnergy(currentGnoxi.getEnergy()+10);
+                                        progressBar3.setValue(currentGnoxi.getEnergy());
+                                }
+
+                        }
+                        if (e.getSource() == item3) {
+                                if(!shop.buy(3)){
+                                        JOptionPane.showMessageDialog(item3,"You dont have enough gold","Shop", JOptionPane.ERROR_MESSAGE);
+                                }
+                                else if (currentGnoxi.getHappiness() == 100){
+                                        return;
+                                }
+                                else if (currentGnoxi.getHappiness()+5 > 100){
+                                        currentGnoxi.setHappiness(100);
+                                        progressBar2.setValue(currentGnoxi.getHappiness());
+
+                                }
+                                else {
+                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness()+5);
+                                        progressBar2.setValue(currentGnoxi.getHappiness());
+                                }
+                        }
+
+                        if (e.getSource() == item4) {
+                                if (bowLabel.isVisible()) {
+                                        JOptionPane.showMessageDialog(item4, "Already owned", "Shop", JOptionPane.ERROR_MESSAGE);
+                                        return;
+                                }
+
+                                else {
+                                        if(!shop.buy(4)){
+                                                JOptionPane.showMessageDialog(item4,"You dont have enough gold","Shop", JOptionPane.ERROR_MESSAGE);
+                                        }
+                                        else {
+                                                shop.buy(4);
+                                                item4.setOpaque(false);
+                                                item4.setIcon(shopBow2);
+                                                item4.repaint();
+                                                bowLabel.setVisible(true);
+                                                currentGnoxi.setBow(true);
+                                        }
+                                }
+                        }
+                        if (e.getSource() == item5) {
+                                if (tophatLabel.isVisible()) {
+                                        JOptionPane.showMessageDialog(item5, "Already owned", "Shop", JOptionPane.ERROR_MESSAGE);
+                                        return;
+                                }
+
+                                else {
+                                        if(!shop.buy(5)){
+                                                JOptionPane.showMessageDialog(item5,"You dont have enough gold","Shop", JOptionPane.ERROR_MESSAGE);
                                         }
                                         else {
                                                 shop.buy(5);
                                                 item5.setOpaque(false);
-                                                item5.setIcon(shopBow2);
+                                                item5.setIcon(topHatIcon2);
                                                 item5.repaint();
-                                                bowLabel.setVisible(true);
+                                                tophatLabel.setVisible(true);
+                                                currentGnoxi.setTophat(true);
                                         }
                                 }
                         }
                         if (e.getSource() == item6) {
-                                shop.buy(6);
+                                if (scarfLabel.isVisible()) {
+                                        JOptionPane.showMessageDialog(item6, "Already owned", "Shop", JOptionPane.ERROR_MESSAGE);
+                                        return;
+                                }
+
+                                else {
+                                        if(!shop.buy(6)){
+                                                JOptionPane.showMessageDialog(item6,"You dont have enough gold","Shop", JOptionPane.ERROR_MESSAGE);
+                                        }
+                                        else {
+                                                shop.buy(5);
+                                                item6.setOpaque(false);
+                                                item6.setIcon(scarfIcon2);
+                                                item6.repaint();
+                                                scarfLabel.setVisible(true);
+                                                currentGnoxi.setScarf(true);
+                                        }
+                                }
                         }
                         gold.setText(currentGnoxi.getGold()+"g");
                 }

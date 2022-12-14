@@ -4,38 +4,41 @@ import java.util.Scanner;
 public class FileIO {
     static File gnoxiFile = new File("Data/GnoxiData.csv");
     static Scanner scan;
-
-    static {
-        try {
-            scan = new Scanner(gnoxiFile);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    static Scanner scan2;
 
     public static void checkForGnoxi() {
-        if (scan.hasNextLine()) {
+        try {
+        scan2 = new Scanner(gnoxiFile);
+    } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
+    }
+        if (scan2.hasNextLine()) {
             GUI.oldGnoxi();
         }
         else {
             GUI.newGnoxi();
         }
     }
-
+   
     public static void writeGnoxi(Gnoxi p) {
         try {
             FileWriter writer = new FileWriter("Data/GnoxiData.csv");
-            writer.write("name, age, happiness, hunger, energy, birthDate, gold, isSleeping, gnoxiType, closingTime");
-            writer.write("\n" + p.getName() + ",0,100,100,100," + System.currentTimeMillis()+",500,false, gnoxiType");
+            writer.write("name, age, happiness, hunger, energy, birthDate, gold, isSleeping, gnoxiType, closingTime, bow, tophat, scarf");
+            writer.write("\n" + p.getName() + ",0,100,100,100," + System.currentTimeMillis()+",500,false,gnoxiType,false,false,false");
             writer.close();
         } catch (IOException e) {
             System.out.println(e);
         }
     }
     public static Gnoxi createOldGnoxi() {
+        try {
+            scan = new Scanner(gnoxiFile);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         scan.nextLine();
         String[] values = scan.nextLine().split(",");
-        Gnoxi p = new Gnoxi(values[0], Calculator.calcAge(Integer.parseInt(values[1])), Calculator.calcHapiness(Integer.parseInt(values[2])), Calculator.calcHunger(Integer.parseInt(values[3])), Calculator.calcEnergy(Integer.parseInt(values[4])), Long.parseLong(values[5]), Integer.parseInt(values[6]),Boolean.parseBoolean(values[7]), values[8]);
+        Gnoxi p = new Gnoxi(values[0], Calculator.calcAge(Integer.parseInt(values[1])), Calculator.calcHapiness(Integer.parseInt(values[2])), Calculator.calcHunger(Integer.parseInt(values[3])), Calculator.calcEnergy(Integer.parseInt(values[4])), Long.parseLong(values[5]), Integer.parseInt(values[6]),Boolean.parseBoolean(values[7]), values[8], Boolean.parseBoolean(values[10]), Boolean.parseBoolean(values[11]), Boolean.parseBoolean(values[12]));
         return p;
     }
     public long getTimeDifference() {

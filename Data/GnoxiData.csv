@@ -1,2 +1,2 @@
-name, age, happiness, hunger, energy, birthDate, gold, isSleeping, gnoxiType, closingTime
-,0,97,79,79,1671018772018,516,false,gnoxiDuck,1671018909807
+name, age, happiness, hunger, energy, birthDate, gold, isSleeping, gnoxiType, closingTime, bow, tophat, scarf
+GUi,0,88,69,69,1671037363214,524,false,gnoxiDuck,1671037767426,false,false,false

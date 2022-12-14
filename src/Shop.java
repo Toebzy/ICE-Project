@@ -18,7 +18,7 @@ public class Shop {
 
         }
         if (itemNumber == 3){
-            price = 10;
+            price = 25;
             if (balance<price) {
                 return false;
             }
@@ -39,7 +39,7 @@ public class Shop {
 
         }
         if (itemNumber == 6){
-            price = 100;
+            price = 1200;
             if (balance<price) {
                 return false;
             }

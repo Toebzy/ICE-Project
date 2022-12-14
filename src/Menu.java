@@ -73,6 +73,7 @@ public class Menu extends JFrame {
     private JButton returnButton;
     private JButton musicButton;
     private JButton resetButton;
+    private JButton motherlode;
     private JFrame settingsFrame;
     public void settings(){
         ImageIcon logo = new ImageIcon("Media/gnoxiIcon.png");
@@ -80,6 +81,7 @@ public class Menu extends JFrame {
         returnButton = new JButton("Return to Menu");
         musicButton = new JButton();
         resetButton = new JButton("Reset Progress");
+        motherlode = new JButton(); // ;)
         JLabel titleText = new JLabel();
 
         titleText.setBounds(65,100,400,50);
@@ -102,10 +104,19 @@ public class Menu extends JFrame {
         resetButton.setBackground(Color.white);
         resetButton.setFocusPainted(false);
 
+        motherlode.setBounds(0, 412, 50, 50);
+        motherlode.setText("");
+        motherlode.setOpaque(false);
+        motherlode.setContentAreaFilled(false);
+        motherlode.setBorderPainted(false);
+       // motherlode.setFocusPainted(false);
+
         ButtonHandler handler = new ButtonHandler();
         returnButton.addActionListener(handler);
         musicButton.addActionListener(handler);
         resetButton.addActionListener(handler);
+        motherlode.addActionListener(handler);
+
 
 
         settingsFrame = new JFrame();
@@ -119,6 +130,7 @@ public class Menu extends JFrame {
         settingsFrame.add(returnButton);
         settingsFrame.add(musicButton);
         settingsFrame.add(resetButton);
+        settingsFrame.add(motherlode);
         settingsFrame.add(titleText);
         settingsFrame.setLayout(null);
 
@@ -176,6 +188,10 @@ public class Menu extends JFrame {
             }
             if(e.getSource()==settingsButton){
                 settings();
+            }
+            if(e.getSource()==motherlode){
+                System.out.println("WORKS WORKS WORKS");
+               // Gnoxi.(50000); // ;)
             }
         }
     }

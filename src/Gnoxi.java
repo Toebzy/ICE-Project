@@ -12,6 +12,9 @@ public class Gnoxi {
     private int happiness;     //0-100
     private int energy;        //0-100
     private boolean sleeping;
+    private boolean bow;
+    private boolean tophat;
+    private boolean scarf;
 
 
 
@@ -62,7 +65,7 @@ public class Gnoxi {
         this.sleeping = sleeping;
     }
 
-    public Gnoxi(String name, int age, int happiness, int hunger, int energy, long birthDate, int gold, boolean sleeping, String gnoxiType) {
+    public Gnoxi(String name, int age, int happiness, int hunger, int energy, long birthDate, int gold, boolean sleeping, String gnoxiType, boolean bow, boolean tophat, boolean scarf) {
 
         this.name = name;
         this.age = age;
@@ -73,6 +76,9 @@ public class Gnoxi {
         this.gold = gold;
         this.sleeping=sleeping;
         this.gnoxiType=gnoxiType;
+        this.bow = bow;
+        this.tophat = tophat;
+        this.scarf = scarf;
 
     }
 
@@ -97,19 +103,51 @@ public class Gnoxi {
     }
 
 
+    public boolean isBow() {
+        return bow;
+    }
+    public boolean isTophat() {
+        return tophat;
+    }
+    public boolean isScarf() {
+        return scarf;
+    }
+
+    public void setBow(boolean bow) {
+        this.bow = bow;
+    }
+    public void setTophat(boolean tophat) {
+        this.tophat = tophat;
+    }
+    public void setScarf(boolean scarf) {
+        this.scarf = scarf;
+    }
+
     public int getAge() {
-
         return age;
-
+    }
+    public static void save() {
+        try {
+            if(GUI.currentGnoxi !=null) {
+                FileWriter writer = new FileWriter("Data/GnoxiData.csv");
+                writer.write("name, age, happiness, hunger, energy, birthDate, gold, isSleeping, gnoxiType, closingTime, bow, tophat, scarf");
+                writer.write("\n" + GUI.currentGnoxi.name + "," + GUI.currentGnoxi.age + "," + GUI.currentGnoxi.happiness + "," + GUI.currentGnoxi.hunger + "," + GUI.currentGnoxi.energy + "," + GUI.currentGnoxi.birthDate + "," + GUI.currentGnoxi.gold + "," + GUI.currentGnoxi.sleeping + "," + GUI.currentGnoxi.gnoxiType + "," + System.currentTimeMillis() + "," + GUI.currentGnoxi.bow+ "," + GUI.currentGnoxi.tophat+ "," + GUI.currentGnoxi.scarf);
+                writer.close();
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     static class Shutdown extends Thread{
         public void run() {
             try {
-                FileWriter writer = new FileWriter("Data/GnoxiData.csv");
-                writer.write("name, age, happiness, hunger, energy, birthDate, gold, isSleeping, gnoxiType, closingTime");
-                writer.write("\n"+ GUI.currentGnoxi.name+ "," +GUI.currentGnoxi.age+","+GUI.currentGnoxi.happiness+","+GUI.currentGnoxi.hunger+","+GUI.currentGnoxi.energy+"," + GUI.currentGnoxi.birthDate + ","+ GUI.currentGnoxi.gold+","+GUI.currentGnoxi.sleeping+"," + GUI.currentGnoxi.gnoxiType + "," + System.currentTimeMillis());
-                writer.close();
+                if(GUI.currentGnoxi !=null) {
+                    FileWriter writer = new FileWriter("Data/GnoxiData.csv");
+                    writer.write("name, age, happiness, hunger, energy, birthDate, gold, isSleeping, gnoxiType, closingTime, bow, tophat, scarf");
+                    writer.write("\n" + GUI.currentGnoxi.name + "," + GUI.currentGnoxi.age + "," + GUI.currentGnoxi.happiness + "," + GUI.currentGnoxi.hunger + "," + GUI.currentGnoxi.energy + "," + GUI.currentGnoxi.birthDate + "," + GUI.currentGnoxi.gold + "," + GUI.currentGnoxi.sleeping + "," + GUI.currentGnoxi.gnoxiType + "," + System.currentTimeMillis() + "," + GUI.currentGnoxi.bow+ "," + GUI.currentGnoxi.tophat+ "," + GUI.currentGnoxi.scarf);
+                    writer.close();
+                }
             } catch (IOException e) {
                 System.out.println(e);
             }
