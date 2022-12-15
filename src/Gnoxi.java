@@ -85,20 +85,17 @@ public class Gnoxi {
     public static String gnoxiType(){               //calculates random gnoxi model
         int i = (int) (Math.random()*10);
         if(i==1 || i==2 || i==3){
-            return ("gnoxiPenguin"); //30%   (37%total)
+            return ("gnoxiPenguin"); //30%
         }
         if(i==4 || i==5 || i==6 || i==7){
-            return ("gnoxiBear");   //40%
+            return ("gnoxiBear");   //40%  (47%total)
         }
         if(i==8){ //Easter egg chance
             int k = (int) (Math.random()*10);
             if(k==10) {
                 return ("gnoxiGnoxi"); //1%
             }
-            else if (k==9||k==8) {
-                return ("gnoxiRabbit2");   //2%
-            }
-            else return ("gnoxiPenguin"); //7%
+            else return ("gnoxiBear"); //7%
         }
         return ("gnoxiRabbit");     //20%
     }

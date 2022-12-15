@@ -3,7 +3,6 @@ public class Calculator {
                                                         //calculates new status levels based on offline time
     public static int calcHunger(int hunger)
     {
-
         int newHunger = (int)Math.round(hunger - (fileIO.getTimeDifference() /1000/60/601.38888888889));
         return newHunger;
     }

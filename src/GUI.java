@@ -4,6 +4,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -20,6 +21,7 @@ public class GUI{
         private JPanel shopPanel;
         private JPanel GnoxiPanel;
         private JPanel gnoxi;
+        private JPanel StatusField;
         public Shop shop = new Shop();
         private boolean Death = false;   //stops multiple deaths
         private boolean hasPooped = false;
@@ -84,30 +86,29 @@ public class GUI{
                         frame.dispose();
                 }
                 FileIO.deleteSave();
-                frame.dispose();
         }
         public GUI(Gnoxi currentGnoxi) {
-                this.currentGnoxi=currentGnoxi;
+                this.currentGnoxi = currentGnoxi;
 
-                if(Menu.onOff == 1) {    //plays music if it's turned ON
+                if (Menu.onOff == 1) {    //plays music if it's turned ON
                         Menu.musicPlayer("It's Okay");
                 }
 
                 //ICONS
 
-                ImageIcon backgroundIcon = new ImageIcon("Media/Menu/gnoxiBackground.png");       //background
-                ImageIcon backgroundIcon2 = new ImageIcon("Media/Menu/gnoxiBackground2.png");       //background
+                ImageIcon backgroundIcon = new ImageIcon("Media/Menu/gnoxiBackground.png");        //background
+                ImageIcon backgroundIcon2 = new ImageIcon("Media/Menu/gnoxiBackground2.png");      //background
                 ImageIcon happinessIcon = new ImageIcon("Media/StatusBars/happiness.png");         //happiness
                 ImageIcon hungerIcon = new ImageIcon("Media/StatusBars/hunger.png");               //hunger
                 ImageIcon energyIcon = new ImageIcon("Media/StatusBars/energy.png");               //energy
                 ImageIcon logoIcon = new ImageIcon("Media/Menu/gnoxiIcon.png");                    //logo
-                ImageIcon gnoxiIcon = new ImageIcon("Media/Gnoxi/"+currentGnoxi.gnoxiType+".png"); //Gnoxi
+                ImageIcon gnoxiIcon = new ImageIcon("Media/Gnoxi/" + currentGnoxi.gnoxiType + ".png"); //Gnoxi
                 ImageIcon gnoxiTophat = new ImageIcon("Media/Gnoxi/gnoxiTophat.png");              //Gnoxi top hat
                 ImageIcon gnoxiScarf = new ImageIcon("Media/Gnoxi/gnoxiScarf.png");                //Gnoxi scarf
                 ImageIcon sleepIcon = new ImageIcon("Media/Interaction/sleepIcon.png");            //sleep
-                ImageIcon aboutIcon= new ImageIcon("Media/Interaction/aboutIcon.png");             //aboutInfo
+                ImageIcon aboutIcon = new ImageIcon("Media/Interaction/aboutIcon.png");             //aboutInfo
                 ImageIcon backIcon = new ImageIcon("Media/Interaction/backIcon.png");              //back to menu
-                ImageIcon gnoxiSleep= new ImageIcon("Media/Gnoxi/gnoxiSleep.png");                 //sleepThingg
+                ImageIcon gnoxiSleep = new ImageIcon("Media/Gnoxi/gnoxiSleep.png");                 //sleepThingg
                 ImageIcon poopIcon = new ImageIcon("Media/Gnoxi/gnoxiPoop.png");                   //poop
                 ImageIcon foodIcon = new ImageIcon("Media/ShopIcons/foodIcon.png");                //food
                 ImageIcon foodHover = new ImageIcon("Media/ShopIcons/foodHover.png");              //food hover
@@ -116,15 +117,15 @@ public class GUI{
                 ImageIcon shopBow = new ImageIcon("Media/ShopIcons/shopBow.png");                  //shop bow
                 ImageIcon bowHover = new ImageIcon("Media/ShopIcons/bowHover.png");                //shop bow hover
                 ImageIcon shopBow2 = new ImageIcon("Media/ShopIcons/shopBow2.png");                //shop bow bought
-                ImageIcon gnoxiDead= new ImageIcon("Media/Gnoxi/gnoxiDead.png");                   //dead
-                ImageIcon lollipop= new ImageIcon("Media/ShopIcons/lollipop.png");                 //lollipop
-                ImageIcon lollipopHover= new ImageIcon("Media/ShopIcons/lollipopHover.png");       //lollipop hover
-                ImageIcon topHatIcon= new ImageIcon("Media/ShopIcons/topHatIcon.png");             //topHat
-                ImageIcon hoverTopHat= new ImageIcon("Media/ShopIcons/hoverTopHat.png");            //topHat hover
-                ImageIcon topHatIcon2= new ImageIcon("Media/ShopIcons/topHatIcon2.png");           //topHat bought
-                ImageIcon scarfIcon= new ImageIcon("Media/ShopIcons/scarfIcon.png");               //scarf
-                ImageIcon scarfHover= new ImageIcon("Media/ShopIcons/scarfHover.png");             //scarf hover
-                ImageIcon scarfIcon2= new ImageIcon("Media/ShopIcons/scarfIcon2.png");             //scarf bought
+                ImageIcon gnoxiDead = new ImageIcon("Media/Gnoxi/gnoxiDead.png");                   //dead
+                ImageIcon lollipop = new ImageIcon("Media/ShopIcons/lollipop.png");                 //lollipop
+                ImageIcon lollipopHover = new ImageIcon("Media/ShopIcons/lollipopHover.png");       //lollipop hover
+                ImageIcon topHatIcon = new ImageIcon("Media/ShopIcons/topHatIcon.png");             //topHat
+                ImageIcon hoverTopHat = new ImageIcon("Media/ShopIcons/hoverTopHat.png");            //topHat hover
+                ImageIcon topHatIcon2 = new ImageIcon("Media/ShopIcons/topHatIcon2.png");           //topHat bought
+                ImageIcon scarfIcon = new ImageIcon("Media/ShopIcons/scarfIcon.png");               //scarf
+                ImageIcon scarfHover = new ImageIcon("Media/ShopIcons/scarfHover.png");             //scarf hover
+                ImageIcon scarfIcon2 = new ImageIcon("Media/ShopIcons/scarfIcon2.png");             //scarf bought
 
                 this.backgroundIcon = backgroundIcon;
                 this.backgroundIcon2 = backgroundIcon2;
@@ -170,7 +171,7 @@ public class GUI{
                 //SHOP BUTTONS
 
                 JButton item1 = new JButton();
-                this.item1=item1;
+                this.item1 = item1;
                 item1.setIcon(foodIcon);
                 item1.setContentAreaFilled(false);
                 item1.setBorder(new EmptyBorder(0, 0, 18, 0));
@@ -206,7 +207,7 @@ public class GUI{
                 item4.setBorder(new EmptyBorder(0, 0, 18, 0));
                 item4.setRolloverIcon(bowHover);
                 item4.addActionListener(handler);
-                item4.setToolTipText("adds a pretty lil' bow");
+                item4.setToolTipText("Adds a pretty lil' bow, and a poop buff");
                 item4.setFocusPainted(false);
 
                 JButton item5 = new JButton();
@@ -215,7 +216,7 @@ public class GUI{
                 item5.setContentAreaFilled(false);
                 item5.setBorder(new EmptyBorder(0, 0, 18, 0));
                 item5.setRolloverIcon(hoverTopHat);
-                item5.setToolTipText("adds a classy top hat");
+                item5.setToolTipText("Adds a classy top hat, also earn more gold");
                 item5.setFocusPainted(false);
                 item5.addActionListener(handler);
 
@@ -225,44 +226,43 @@ public class GUI{
                 item6.setContentAreaFilled(false);
                 item6.setBorder(new EmptyBorder(0, 0, 18, 0));
                 item6.setRolloverIcon(scarfHover);
-                item6.setToolTipText("adds a warm & comfy scarf");
+                item6.setToolTipText("Adds comfy scarf, and happiness decreases slower ");
                 item6.addActionListener(handler);
                 item6.setFocusPainted(false);
 
                 //LABELS
 
                 JLabel infoLabel = new JLabel();
-                infoLabel.setLayout(new GridLayout(1,2));
-                infoLabel.setBorder(new EmptyBorder(0,0,18,0));
+                infoLabel.setLayout(new GridLayout(1, 2));
+                infoLabel.setBorder(new EmptyBorder(0, 0, 18, 0));
                 infoLabel.add(menuBack);
                 infoLabel.add(aboutInfo);                               //label for info and menuBack
                 infoLabel.setVisible(true);
 
                 JLabel gold = new JLabel();
-                this.gold=gold;
-                gold.setBorder(new EmptyBorder(28,42,32,0));
-                gold.setSize(50,50);
-                gold.setText(currentGnoxi.getGold()+"");
+                this.gold = gold;
+                gold.setBorder(new EmptyBorder(28, 42, 32, 0));
+                gold.setSize(50, 50);
+                gold.setText(currentGnoxi.getGold() + "");
                 gold.setVerticalTextPosition(JLabel.CENTER);
                 gold.setFont(new Font("Arial", Font.BOLD, 14));
-
 
                 JLabel gnoxi1 = new JLabel();                            //gnoxi label
                 gnoxi1.setIcon(gnoxiIcon);
                 gnoxi1.setText(currentGnoxi.getName()); //nameQuery
                 gnoxi1.setVerticalTextPosition(JLabel.TOP);
                 gnoxi1.setHorizontalTextPosition(JLabel.CENTER);
-                gnoxi1.setFont(new Font("Consolas", Font.BOLD, 20));
+                gnoxi1.setFont(new Font ("Arial", Font.BOLD, 20));
                 gnoxi1.setForeground(Color.BLACK);
 
 
                 //PANELS
 
                 JPanel shopPanel = new JPanel();
-                this.shopPanel=shopPanel;
+                this.shopPanel = shopPanel;
                 shopPanel.setOpaque(false);
-                shopPanel.setBorder(new EmptyBorder(11,0,0,2));
-                shopPanel.setLayout(new GridLayout(7,1));
+                shopPanel.setBorder(new EmptyBorder(11, 0, 0, 5));
+                shopPanel.setLayout(new GridLayout(7, 1));
                 shopPanel.add(item1);
                 shopPanel.add(item2);
                 shopPanel.add(item3);                   //shop panel for all items
@@ -273,11 +273,12 @@ public class GUI{
 
 
                 JPanel StatusField = new JPanel();                       //Status field panel
+                this.StatusField=StatusField;
                 StatusField.setOpaque(false);
                 StatusField.setLayout(new GridBagLayout());
-                StatusField.setBorder(new EmptyBorder(13,76,0,0));
+                StatusField.setBorder(new EmptyBorder(13, 78, 0, 0));
                 GridBagConstraints a = new GridBagConstraints();
-                a.insets = new Insets(0,0,0,91);
+                a.insets = new Insets(0, 0, 0, 91);
                 a.anchor = GridBagConstraints.CENTER;
                 a.gridx = 0;
                 a.gridy = 0;
@@ -286,9 +287,8 @@ public class GUI{
                 hungerLabel.setIcon(hungerIcon);
                 hungerLabel.setOpaque(false);
 
-
                 JProgressBar progressBar = new JProgressBar();          //progressbar for hunger
-                this.progressBar=progressBar;
+                this.progressBar = progressBar;
                 progressBar.setOpaque(false);
                 progressBar.setBorderPainted(false);
                 progressBar.setMaximum(100);
@@ -302,7 +302,7 @@ public class GUI{
                 happinessLabel.setOpaque(false);
 
                 JProgressBar progressBar2 = new JProgressBar();         //progressbar for happiness
-                this.progressBar2=progressBar2;
+                this.progressBar2 = progressBar2;
                 progressBar2.setMaximum(100);
                 progressBar2.setOpaque(false);
                 progressBar2.setBorderPainted(false);
@@ -314,7 +314,7 @@ public class GUI{
                 energyLabel.setOpaque(false);
 
                 JProgressBar progressBar3 = new JProgressBar();
-                this.progressBar3=progressBar3;
+                this.progressBar3 = progressBar3;
                 progressBar3.setMaximum(100);
 
                 progressBar3.setOpaque(false);                          //progressbar for energy
@@ -326,38 +326,39 @@ public class GUI{
                 Container container = StatusField;
                 a.gridx = 0;
                 a.gridy = 1;
-                container.add(hungerLabel,a);
-                container.add(progressBar,a);
+                container.add(hungerLabel, a);
+                container.add(progressBar, a);
                 a.gridx = 1;
                 a.gridy = 1;
-                container.add(happinessLabel,a);
-                container.add(progressBar2,a);
-                container.add(borderLabel,a);
+                container.add(happinessLabel, a);
+                container.add(progressBar2, a);
+                container.add(borderLabel, a);
                 a.gridx = 2;
                 a.gridy = 1;
-                container.add(energyLabel,a);
-                container.add(progressBar3,a);
+                container.add(energyLabel, a);
+                container.add(progressBar3, a);
 
                 Thread incrementThread = new Thread(() -> {                     //thread to lower hunger progressbar
-                        while (!menuPause && currentGnoxi.getHunger()>0) {
-                                hungerLabel.setToolTipText(currentGnoxi.getHunger()+""+"%");
-                                currentGnoxi.setHunger(currentGnoxi.getHunger()-1);
+                        while (!menuPause && currentGnoxi.getHunger() > 0) {
+                                hungerLabel.setToolTipText(currentGnoxi.getHunger() + "" + "%");
+                                currentGnoxi.setHunger(currentGnoxi.getHunger() - 1);
 
                                 progressBar.setValue(currentGnoxi.getHunger());
-                                if(currentGnoxi.getHunger()==0&&!Death) {
+                                if (currentGnoxi.getHunger() == 0 && !Death) {
                                         death();        //gnoxi dies if it hits 0 (if not dead already)
                                 }
                                 if (currentGnoxi.getHunger() < 30) {
-                                        progressBar.setForeground(new Color(240,79,63));
-                                } if (currentGnoxi.getHunger() > 30 && currentGnoxi.getHunger() < 60){
-                                        progressBar.setForeground(new Color(71,137,210));
+                                        progressBar.setForeground(new Color(240, 79, 63));
                                 }
-                                if(currentGnoxi.getHunger()>60){
-                                        progressBar.setForeground(new Color(119,176,43));
+                                if (currentGnoxi.getHunger() > 30 && currentGnoxi.getHunger() < 60) {
+                                        progressBar.setForeground(new Color(71, 137, 210));
+                                }
+                                if (currentGnoxi.getHunger() > 60) {
+                                        progressBar.setForeground(new Color(119, 176, 43));
                                 }
 
                                 try {
-                                        Thread.sleep(2005); // Pause the thread
+                                        Thread.sleep(3000); // Pause the thread
                                 } catch (InterruptedException e) {
                                         // If the thread is interrupted, break out of the loop
                                         System.out.println(e);
@@ -368,21 +369,21 @@ public class GUI{
 
                 incrementThread.start();
                 Thread incrementThread2 = new Thread(() -> {                     //thread to lower happiness progressbar
-                        while (!menuPause && currentGnoxi.getHappiness()>0) {
-                                happinessLabel.setToolTipText(currentGnoxi.getHappiness()+""+"%");
-                                currentGnoxi.setHappiness(currentGnoxi.getHappiness()-1);
+                        while (!menuPause && currentGnoxi.getHappiness() > 0) {
+                                happinessLabel.setToolTipText(currentGnoxi.getHappiness() + "" + "%");
 
                                 progressBar2.setValue(currentGnoxi.getHappiness());
-                                if(currentGnoxi.getHappiness()==0&&!Death){
+                                if (currentGnoxi.getHappiness() <= 0 && !Death) {
                                         death();        //gnoxi dies if it hits 0 (if not dead already)
                                 }
                                 if (currentGnoxi.getHappiness() < 30) {
-                                        progressBar2.setForeground(new Color(240,79,63));
-                                } if (currentGnoxi.getHappiness() > 30 && currentGnoxi.getHappiness() < 60){
-                                        progressBar2.setForeground(new Color(71,137,210));
+                                        progressBar2.setForeground(new Color(240, 79, 63));
                                 }
-                                if(currentGnoxi.getHappiness()>60){
-                                        progressBar2.setForeground(new Color(119,176,43));
+                                if (currentGnoxi.getHappiness() > 30 && currentGnoxi.getHappiness() < 60) {
+                                        progressBar2.setForeground(new Color(71, 137, 210));
+                                }
+                                if (currentGnoxi.getHappiness() > 60) {
+                                        progressBar2.setForeground(new Color(119, 176, 43));
                                 }
 
                                 try {
@@ -397,23 +398,26 @@ public class GUI{
                 incrementThread2.start();
 
                 Thread incrementThread3 = new Thread(() -> {                     //thread to lower energy progressbar
-                        while (!menuPause && currentGnoxi.getEnergy()>0) {
-                                energyLabel.setToolTipText(currentGnoxi.getEnergy()+""+"%");
-                                if(!currentGnoxi.getSleeping()){
-                                currentGnoxi.setEnergy(currentGnoxi.getEnergy()-1);}
-                                if(currentGnoxi.getSleeping()&&currentGnoxi.getEnergy()<100){
-                                        currentGnoxi.setEnergy(currentGnoxi.getEnergy()+2);}
-                                if(currentGnoxi.getEnergy()==0&&!Death){
+                        while (!menuPause && currentGnoxi.getEnergy() > 0) {
+                                energyLabel.setToolTipText(currentGnoxi.getEnergy() + "" + "%");
+                                if (!currentGnoxi.getSleeping()) {
+                                        currentGnoxi.setEnergy(currentGnoxi.getEnergy() - 1);
+                                }
+                                if (currentGnoxi.getSleeping() && currentGnoxi.getEnergy() < 100) {
+                                        currentGnoxi.setEnergy(currentGnoxi.getEnergy() + 1);
+                                }
+                                if (currentGnoxi.getEnergy() == 0 && !Death) {
                                         death();        //gnoxi dies if it hits 0 (if not dead already)
                                 }
                                 progressBar3.setValue(currentGnoxi.getEnergy());
                                 if (currentGnoxi.getEnergy() < 30) {
-                                        progressBar3.setForeground(new Color(240,79,63));
-                                } if (currentGnoxi.getEnergy() > 30 && currentGnoxi.getEnergy() < 60){
-                                        progressBar3.setForeground(new Color(71,137,210));
+                                        progressBar3.setForeground(new Color(240, 79, 63));
                                 }
-                                if(currentGnoxi.getEnergy()>60){
-                                        progressBar3.setForeground(new Color(119,176,43));
+                                if (currentGnoxi.getEnergy() > 30 && currentGnoxi.getEnergy() < 60) {
+                                        progressBar3.setForeground(new Color(71, 137, 210));
+                                }
+                                if (currentGnoxi.getEnergy() > 60) {
+                                        progressBar3.setForeground(new Color(119, 176, 43));
                                 }
                                 try {
                                         Thread.sleep(2000); // Pause the thread
@@ -439,34 +443,35 @@ public class GUI{
                 randPoop.addActionListener(handler);
 
 
-
                 JLabel bowLabel = new JLabel();
                 this.bowLabel = bowLabel;
                 bowLabel.setIcon(new ImageIcon("Media/Gnoxi/gnoxiBow.png"));
+                bowLabel.setVisible(false);
                 bowLabel.setVisible(currentGnoxi.hasBow());
-                if(bowLabel.isVisible()){
+                if (bowLabel.isVisible()|| currentGnoxi.hasBow()) {
                         item4.setIcon(shopBow2);
+                        item4.setRolloverIcon(shopBow2);
                         item4.repaint();
                 }
-                if(!bowLabel.isVisible()||currentGnoxi.hasBow()) {
-                        item4.setRolloverIcon(shopBow2);
+                if (!bowLabel.isVisible() || !currentGnoxi.hasBow()) {
+                        item4.setRolloverIcon(bowHover);
                         item4.repaint();
                 }
 
                 JLabel scarfLabel = new JLabel();
                 this.scarfLabel = scarfLabel;
-                scarfLabel.setBorder(new EmptyBorder(2,0,0,0));
+                scarfLabel.setBorder(new EmptyBorder(2, 0, 0, 0));
                 scarfLabel.setVisible(false);
                 scarfLabel.setIcon(gnoxiScarf);
                 scarfLabel.setVisible(currentGnoxi.hasScarf());
-                if(scarfLabel.isVisible()){
+                if (scarfLabel.isVisible()|| currentGnoxi.hasScarf()) {
                         item6.setIcon(scarfIcon2);
-                        item6.repaint();
-                }
-                if(!scarfLabel.isVisible()||currentGnoxi.hasScarf()) {
                         item6.setRolloverIcon(scarfIcon2);
                         item6.repaint();
-
+                }
+                if (!scarfLabel.isVisible() || !currentGnoxi.hasScarf()) {
+                        item6.setRolloverIcon(scarfHover);
+                        item6.repaint();
                 }
 
                 JLabel tophatLabel = new JLabel();
@@ -474,12 +479,13 @@ public class GUI{
                 tophatLabel.setVisible(false);
                 tophatLabel.setIcon(gnoxiTophat);
                 tophatLabel.setVisible(currentGnoxi.hasTophat());
-                if(tophatLabel.isVisible()){
+                if (tophatLabel.isVisible()|| currentGnoxi.hasTophat()) {
                         item5.setIcon(topHatIcon2);
+                        item5.setRolloverIcon(topHatIcon2);
                         item5.repaint();
                 }
-                if(!tophatLabel.isVisible()||currentGnoxi.hasTophat()) {
-                        item5.setRolloverIcon(topHatIcon2);
+                if (!tophatLabel.isVisible() || !currentGnoxi.hasTophat()) {
+                        item5.setRolloverIcon(hoverTopHat);
                         item5.repaint();
                 }
 
@@ -491,7 +497,7 @@ public class GUI{
 
 
                 JPanel gnoxi = new JPanel();
-                this.gnoxi=gnoxi;
+                this.gnoxi = gnoxi;
                 //Gnoxi panel
                 gnoxi.setLayout(new GridBagLayout());
                 GridBagConstraints q = new GridBagConstraints();
@@ -499,34 +505,32 @@ public class GUI{
                 q.gridx = 0;
                 q.gridy = 0;
                 JLabel gnoxiDie = new JLabel();
-                this.gnoxiDie=gnoxiDie;
+                this.gnoxiDie = gnoxiDie;
                 gnoxiDie.setIcon(gnoxiDead);
                 gnoxi.add(gnoxiDie);
                 gnoxiDie.setVisible(false);
-                gnoxi.add(bowLabel,q);
-                gnoxi.add(tophatLabel,q);
-                gnoxi.add(scarfLabel,q);
-                gnoxi.add(sleepLabel,q);
-                gnoxi.add(gnoxi1,q);
-                gnoxi.setBorder(new EmptyBorder(20,0,0,0));
+                gnoxi.add(bowLabel, q);
+                gnoxi.add(tophatLabel, q);
+                gnoxi.add(scarfLabel, q);
+                gnoxi.add(sleepLabel, q);
+                gnoxi.add(gnoxi1, q);
+                gnoxi.setBorder(new EmptyBorder(20, 0, 0, 0));
                 randPoop.setBorder(new EmptyBorder(0, 260, 0, 0));
                 gnoxi.add(randPoop, q);
                 randPoop.setVisible(false);
 
                 Thread incrementThread4 = new Thread(() -> {    //spawns poop on random timer
                         Random randomX = new Random();
-                        int xMax = 60000;  //lower number = more poops
-                        while (!menuPause&&currentGnoxi.getHunger()>0) {
+                        int xMax = 30000;  //lower number = more poops
+                        while (!menuPause && currentGnoxi.getHunger() > 0) {
                                 int int_randomX = randomX.nextInt(xMax);
-                                if(currentGnoxi.getHunger()>60&&!currentGnoxi.getSleeping()) {
+                                if (currentGnoxi.getHunger() > 30 && !currentGnoxi.getSleeping()) {
                                         randPoop.setBorder(new EmptyBorder(0, 255, 0, 0));
                                         randPoop.setVisible(true);
-                                        if(!currentGnoxi.getSleeping()||!hasPooped) {
+                                        if (!currentGnoxi.getSleeping() && !hasPooped) {
                                                 sfxPlayer("poopSound");
+                                                hasPooped = true;
                                         }
-                                }
-                                else {
-                                        System.out.println("no poop");
                                 }
                                 try {
                                         Thread.sleep(int_randomX); // Pause the thread
@@ -541,14 +545,23 @@ public class GUI{
                 incrementThread4.start();  //gives gold while happiness is high
 
                 Thread incrementThread5 = new Thread(() -> {
-                        while (!menuPause && currentGnoxi.getHunger()>0) {
-                                if(currentGnoxi.getHappiness()>60){
-                                        currentGnoxi.setGold(currentGnoxi.getGold()+1);
+                        while (!menuPause && currentGnoxi.getHunger() > 0) {
+                                if (currentGnoxi.getHappiness() > 60) {
+                                        currentGnoxi.setGold(currentGnoxi.getGold() + 1);
                                 }
-                                if(currentGnoxi.getHappiness()>80){
-                                        currentGnoxi.setGold(currentGnoxi.getGold()+2);
+                                if (currentGnoxi.getHappiness() > 80) {
+                                        currentGnoxi.setGold(currentGnoxi.getGold() + 2);
                                 }
-                                gold.setText(currentGnoxi.getGold()+"");
+                                if (currentGnoxi.getHappiness() > 90) {
+                                        currentGnoxi.setGold(currentGnoxi.getGold() + 1);
+                                }
+                                if(currentGnoxi.getEnergy()>80&&currentGnoxi.getHunger()<80){
+                                        currentGnoxi.setGold(currentGnoxi.getGold() + 2);
+                                }
+                                if (currentGnoxi.hasTophat()) {   //tophat gives passive gold
+                                        currentGnoxi.setGold(currentGnoxi.getGold() + 2);
+                                }
+                                gold.setText(currentGnoxi.getGold() + "");
                                 try {
                                         Thread.sleep(6000); // Pause the thread
                                 } catch (InterruptedException e) {
@@ -562,22 +575,29 @@ public class GUI{
 
                 Thread incrementThread6 = new Thread(() -> {            //sets happiness lower if gnoxi is hungry/tired
 
-                        while (!menuPause && currentGnoxi.getHappiness()>0) {
-                                if(currentGnoxi.getHappiness()>=100){
+                        while (!menuPause && currentGnoxi.getHappiness() > 0) {
+                                if (currentGnoxi.getHappiness() >= 100) {
                                         currentGnoxi.setHappiness(100);
                                 }
-                                if(currentGnoxi.getHunger()>60&&currentGnoxi.getEnergy()>60&&currentGnoxi.getHappiness()<=97) {
-                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness()+3);
+                                if (currentGnoxi.getHunger() > 60 && currentGnoxi.getEnergy() > 60 && currentGnoxi.getHappiness()<100) {
+                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness() + 3);
                                 }
-                                if(currentGnoxi.getHunger()<60){
-                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness()-2);
+                                if (currentGnoxi.getHunger() < 70) {
+                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness() - 1);
                                 }
-                                if(currentGnoxi.getEnergy()<60){
-                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness()-2);
+                                if (currentGnoxi.getHunger() < 60 && currentGnoxi.getHunger() < 30) {
+                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness() - 1);
                                 }
-                                if(currentGnoxi.getHappiness()<1&&!Death){
-                                        death();
+                                if (currentGnoxi.getEnergy() < 70) {
+                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness() - 1);
                                 }
+                                if (currentGnoxi.getEnergy() < 60 && currentGnoxi.getEnergy() < 30) {
+                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness() - 1);
+                                }
+                                if (currentGnoxi.hasScarf() && currentGnoxi.getHappiness() < 70) {   //scarf gives happiness
+                                        currentGnoxi.setHappiness(currentGnoxi.getHappiness() + 2);
+                                }
+
                                 try {
                                         Thread.sleep(2000); // Pause the thread
                                 } catch (InterruptedException e) {
@@ -592,37 +612,38 @@ public class GUI{
 
                 JPanel Interaction = new JPanel();                          //Interaction panel
                 Interaction.setOpaque(false);
-                sleep.setBorder(new EmptyBorder(0, 0, 0, 0));
+                sleep.setBorder(new EmptyBorder(0, 0, 0, 00));
                 sleep.setContentAreaFilled(false);
 
                 Interaction.add(sleep);
-                Interaction.setLayout(new FlowLayout(FlowLayout.LEFT,70,0));
+                Interaction.setLayout(new FlowLayout(FlowLayout.LEFT, 70, 0));
 
 
                 JPanel GnoxiPanel = new JPanel();
-                this.GnoxiPanel=GnoxiPanel;
+                this.GnoxiPanel = GnoxiPanel;
                 GnoxiPanel.setLayout(new GridBagLayout());
                 GnoxiPanel.setOpaque(false);
 
                 GridBagConstraints d = new GridBagConstraints();
-                GnoxiPanel.setBorder(new EmptyBorder(20,10,17,10));
+                GnoxiPanel.setBorder(new EmptyBorder(20, 10, 17, 10));
                 d.weighty = 0.1;
                 d.fill = GridBagConstraints.VERTICAL;
                 d.gridx = 0;
                 d.gridy = 1;
-                GnoxiPanel.add(StatusField,d);          //sets all labels up nicely, shop is seperate
+                GnoxiPanel.add(StatusField, d);          //sets all labels up nicely, shop is separate
                 d.weighty = 0.5;
                 d.fill = GridBagConstraints.VERTICAL;
                 d.gridx = 0;
                 d.gridy = 2;
-                d.ipady=40;
-                GnoxiPanel.add(gnoxi,d);
-                d.ipady=10;
+                d.ipady = 40;
+                GnoxiPanel.add(gnoxi, d);
+                d.ipady = 10;
                 d.weighty = 0.1;
                 d.fill = GridBagConstraints.BOTH;
                 d.gridx = 0;
                 d.gridy = 3;
-                GnoxiPanel.add(Interaction,d);
+                GnoxiPanel.add(Interaction, d);
+
 
                 //FRAME
                 JFrame frame = new JFrame("GnoxiWorld");               //Main frame
@@ -634,7 +655,7 @@ public class GUI{
                 frame.setResizable(false);
                 frame.setVisible(true);
                 frame.setLayout(new BorderLayout());
-                background=new JLabel();  //adds cool background
+                background = new JLabel();  //adds cool background
                 background.setIcon(backgroundIcon);
                 background.setOpaque(false);
                 frame.setContentPane(background);
@@ -644,24 +665,25 @@ public class GUI{
                 c.weighty = 1;
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.gridx = 0;
-                c.gridheight=5;
-                frame.add(GnoxiPanel,c);
-                c.gridheight=1;
+                c.gridheight = 5;
+                frame.add(GnoxiPanel, c);
+                c.gridheight = 1;
                 c.weighty = 0;
                 c.weightx = 0.1;
                 c.gridx = 3;
                 c.gridy = 1;
                 c.fill = GridBagConstraints.HORIZONTAL;
-                frame.add(shopPanel,c);
+                frame.add(shopPanel, c);
                 c.gridy = 0;
-                d.ipady=0;
+                d.ipady = 0;
                 c.gridx = 3;
                 c.fill = GridBagConstraints.CENTER;
-                frame.add(gold,c);
+                frame.add(gold, c);
 
-                if(currentGnoxi.getSleeping()){             //gnoxi stills sleeps after closing program
-                        frame.setSize(542,500);
-                        if(Menu.onOff==1) {    //plays music if it's turned ON
+
+                if (currentGnoxi.getSleeping()) {             //gnoxi stills sleeps after closing program
+                        frame.setSize(540, 500);
+                        if (Menu.onOff == 1) {    //plays music if it's turned ON
                                 Menu.musicPlayer("Cascade");
                         }
                         currentGnoxi.setSleeping(true);
@@ -670,7 +692,7 @@ public class GUI{
                         sleepLabel.setVisible(true);            //scene switch to sleeping
                         shopPanel.setVisible(false);
                         gold.setVisible(false);
-                       // GnoxiPanel.setBackground(new Color(52,51,97));
+                        GnoxiPanel.setBackground(new Color(52,51,97));
                 }
         }
         public static void sfxPlayer(String title){     //sfx handling
@@ -708,7 +730,7 @@ public class GUI{
                                         if(Menu.onOff==1) {
                                                 Menu.musicPlayer("Cascade");
                                         }
-                                        frame.setSize(542,500);
+                                        frame.setSize(540,500);
                                         currentGnoxi.setSleeping(true);
                                         background.setIcon(backgroundIcon2);
                                         currentGnoxi.setSleeping(true);
@@ -721,12 +743,15 @@ public class GUI{
 
                         if (e.getSource() == randPoop){
                                 currentGnoxi.setGold(currentGnoxi.gold +=13);   //gives gold when poop is pressed
+                                if (currentGnoxi.hasBow()){ //poop buff
+                                        currentGnoxi.setGold(currentGnoxi.gold +=10);
+                                }
                                 randPoop.setVisible(false);
+                                hasPooped = false;
                         }
 
                         if(e.getSource()==aboutInfo){
-                                death();
-                               /* JOptionPane.showMessageDialog(null, "You need to always keep the three main parameters above 0.\n" +
+                                JOptionPane.showMessageDialog(null, "You need to always keep the three main parameters above 0.\n" +
                                         "The three main parameters are:\n" +
                                         "Energy, Happiness and Hunger.\n" +
                                         "\n" +
@@ -756,18 +781,19 @@ public class GUI{
                                         "Types of gnoxi:\n" +
                                         "There are 3 normal types of gnoxi:\n" +
                                         "GnoxiBear   (Common)\n" +
-                                        "GnoxiDuck   (Uncommon) \n" +
-                                        "GnoxiRabbit (Rare)\n" +
+                                        "GnoxiPenguin (Uncommon) \n" +
+                                        "GnoxiRabbit  (Rare)\n" +
                                         "You can also run into the GnoxiGnoxi, but that's just a myth\n" +
                                         " \n", "Tutorial", JOptionPane.INFORMATION_MESSAGE);
 
-                                */
                         }
                         if(e.getSource()==menuBack){
                                 menuPause=true;
                                 frame.dispose();
                                 Gnoxi.save();   //saves gnoxi, plays menu music, and starts new menu
-                                Menu.musicPlayer("Limerence");
+                                if(Menu.onOff==1) {
+                                        Menu.musicPlayer("Limerence");
+                                }
                                 new Menu ();
                         }
 
