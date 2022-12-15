@@ -1,6 +1,6 @@
 public class Calculator {
     private static FileIO fileIO = new FileIO();
-
+                                                        //calculates new status levels based on offline time
     public static int calcHunger(int hunger)
     {
 
@@ -13,9 +13,9 @@ public class Calculator {
         int newAge = (int)Math.round(age + (fileIO.getTimeDifference()/86400000));
         return newAge;
     }
-    public static int calcHapiness(int hapiness)
+    public static int calcHappiness(int happiness)
     {
-        int newHapiness = (int)Math.round(hapiness - (fileIO.getTimeDifference() /1000/60/601.38888888889));
+        int newHapiness = (int)Math.round(happiness - (fileIO.getTimeDifference() /1000/60/601.38888888889));
         return newHapiness;
     }
     public static int calcEnergy(int energy)

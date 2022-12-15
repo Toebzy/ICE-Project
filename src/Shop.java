@@ -1,12 +1,12 @@
 public class Shop {
     public boolean buy(int itemNumber){
-        int balance = GUI.currentGnoxi.getGold();
+        int balance = GUI.currentGnoxi.getGold();   //balance = currentGold
         int price = 0;
 
         if (itemNumber == 1){
-            price = 5;
+            price = 5;          //updates price based on item selection
             if (balance<price) {
-                return false;
+                return false;   //return false if poor
             }
 
         }
@@ -25,7 +25,7 @@ public class Shop {
 
         }
         if (itemNumber == 4){
-            price = 20;
+            price = 200;
             if (balance<price) {
                 return false;
             }
@@ -45,8 +45,8 @@ public class Shop {
             }
 
         }
-        int newBalance = balance - price;
+        int newBalance = balance - price;      //calculates and sets new balance
         GUI.currentGnoxi.setGold(newBalance);
-        return true;
+        return true; //returns true because rich
     }
 }

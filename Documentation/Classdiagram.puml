@@ -6,47 +6,69 @@ class GUI
 class Main
 class Menu
 class Shop
+class Calculator
 class ButtonHandler
 
+
+Main : Menu.MusicPlayer()
+Main : new Gnoxi.Shutdown()
 Main : new Menu()
 
-Gnoxi : Gnoxi(String name)
-Gnoxi : doActivity()
-Gnoxi : doSleep()
-Gnoxi : doPoop()
-Gnoxi : getAge()
-Gnoxi : randomEvent()
-
-GUI : newGnoxi()
-GUI : oldGnoxi()
-GUI : ImageIcons
-GUI : JButtons
-GUI : JLabels
-GUI : JPanels
-GUI : JFrames
-
-Menu : Menu()
-Menu : musicPlayer(title)
-Menu : startGame
-Menu : exitGame
-Menu : ButtonHandler
+Menu : public Menu()
+Menu : Settings()
+Menu : musicPlayer()
 Menu : menuFrame
-
-ButtonHandler : actionPerformed()
+Menu : settingsFrame
 
 FileIO : checkForGnoxi()
-FileIO : writeGnoxiToCSV()
-FileIO : writeWithoutOverwrite()
+FileIO : saveExists()
+FileIO : deleteSave()
+FileIO : writeGnoxi()
+FileIO : createOldGnoxi()
+FileIO : getTimeDifference()
 
-Shop : Shopitems 1-6
-Shop : buy()
+Calculator : calcHunger(int hunger)
+Calculator : calcHappiness(int happiness)
+Calculator : calcEnergy(int energy)
+Calculator : calcAge(int age)
+
+GUI : newGnoxi()
+GUI : static Gnoxi currentGnoxi
+GUI : oldGnoxi()
+GUI : death()
+GUI : public GUI(currentGnoxi)
+GUI : sfxPlayer
+GUI : Jframe frame
+
+Shop : buy(int itemNumber)
+
+Gnoxi : public Gnoxi(+12 parameteres)
+Gnoxi : gnoxiType()
+Gnoxi : setBow()
+Gnoxi : setTophat()
+Gnoxi : setScarf()
+Gnoxi : getAge()
+Gnoxi : save()
+Gnoxi : Shutdown()
+
+ButtonHandler : actionPerformed(ActionEvent e)
+ButtonHandler : e.getSource()
+
+
 
 Main --> Menu
+Main --> Gnoxi
 Menu --> FileIO
 Menu --> ButtonHandler
 FileIO --> GUI
+FileIO --> Calculator
 GUI --> Gnoxi
+GUI --> Calculator
+GUI --> FileIO
+GUI --> Menu
+GUI --> ButtonHandler
 GUI --> Shop
+Gnoxi --> GUI
 
 
 

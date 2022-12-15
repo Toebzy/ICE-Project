@@ -72,7 +72,7 @@ public class Gnoxi {
         this.happiness = happiness;
         this.hunger = hunger;
         this.energy = energy;
-        this.birthDate = birthDate;
+        this.birthDate = birthDate;             //gnoxi constructor
         this.gold = gold;
         this.sleeping=sleeping;
         this.gnoxiType=gnoxiType;
@@ -82,34 +82,36 @@ public class Gnoxi {
 
     }
 
-    public static String gnoxiType(){
+    public static String gnoxiType(){               //calculates random gnoxi model
         int i = (int) (Math.random()*10);
         if(i==1 || i==2 || i==3){
-            return ("gnoxiDuck"); //30%   (39%total)
+            return ("gnoxiPenguin"); //30%   (37%total)
         }
         if(i==4 || i==5 || i==6 || i==7){
             return ("gnoxiBear");   //40%
         }
-        if(i==8){
+        if(i==8){ //Easter egg chance
             int k = (int) (Math.random()*10);
             if(k==10) {
                 return ("gnoxiGnoxi"); //1%
-            }               //easter egg
-            else{
-                return ("gnoxiDuck");   //9%
             }
+            else if (k==9||k==8) {
+                return ("gnoxiRabbit2");   //2%
+            }
+            else return ("gnoxiPenguin"); //7%
         }
         return ("gnoxiRabbit");     //20%
     }
 
 
-    public boolean isBow() {
+    public boolean hasBow() {
         return bow;
     }
-    public boolean isTophat() {
+    public boolean hasTophat() {
         return tophat;
     }
-    public boolean isScarf() {
+
+    public boolean hasScarf() {
         return scarf;
     }
 
@@ -126,7 +128,7 @@ public class Gnoxi {
     public int getAge() {
         return age;
     }
-    public static void save() {
+    public static void save() {                     //used to save all currentGnoxi data to csv
         try {
             if(GUI.currentGnoxi !=null) {
                 FileWriter writer = new FileWriter("Data/GnoxiData.csv");
@@ -139,7 +141,7 @@ public class Gnoxi {
         }
     }
 
-    static class Shutdown extends Thread{
+    static class Shutdown extends Thread{           //used to save data when program closes (System.exit)
         public void run() {
             try {
                 if(GUI.currentGnoxi !=null) {

@@ -2,7 +2,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -16,12 +15,12 @@ public class Menu extends JFrame {
 
     public Menu(){
 
-        ImageIcon icon = new ImageIcon("Media/gnoxiIcon.png");
-        ImageIcon gnoxiHeader = new ImageIcon("Media/gnoxiHeader.png");
+        ImageIcon logo = new ImageIcon("Media/Menu/gnoxiIcon.png");
+        ImageIcon gnoxiHeader = new ImageIcon("Media/Menu/gnoxiHeader.png");
 
         menuFrame = new JFrame("GnoxiWorld");
 
-        startGameButton = new JButton("Start Game");                        //start-game button
+        startGameButton = new JButton(FileIO.saveExists());                        //start-game button
         startGameButton.setBounds(100, 240, 275, 50);
         startGameButton.setFont(new Font("Arial", Font.BOLD, 15));
         startGameButton.setBackground(Color.white);
@@ -41,15 +40,14 @@ public class Menu extends JFrame {
 
         JLabel gnoxiHead = new JLabel();                                        //menu title text and picture
         gnoxiHead.setIcon(gnoxiHeader);
-        gnoxiHead.setBackground(ColorUIResource.WHITE);
         gnoxiHead.setText("G N O X I W O R L D");
-        gnoxiHead.setFont(new Font("Arial", Font.BOLD, 20));
+        gnoxiHead.setFont(new Font("Arial", Font.BOLD, 30));
         gnoxiHead.setVerticalTextPosition(JLabel.TOP);
         gnoxiHead.setHorizontalTextPosition(JLabel.CENTER);
-        gnoxiHead.setBounds(120, 30, 250, 190);
+        gnoxiHead.setBounds(95, 0, 500, 250);
 
 
-        menuFrame.setIconImage(icon.getImage());                               //menu frame
+        menuFrame.setIconImage(logo.getImage());                               //menu frame
         menuFrame.setSize(500, 500);
         menuFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         menuFrame.setResizable(false);
@@ -76,14 +74,14 @@ public class Menu extends JFrame {
     private JButton motherlode;
     private JFrame settingsFrame;
     public void settings(){
-        ImageIcon logo = new ImageIcon("Media/gnoxiIcon.png");
+        ImageIcon logo = new ImageIcon("Media/Menu/gnoxiIcon.png");
 
         returnButton = new JButton("Return to Menu");
         musicButton = new JButton();
         resetButton = new JButton("Reset Progress");
         motherlode = new JButton(); // ;)
-        JLabel titleText = new JLabel();
 
+        JLabel titleText = new JLabel();
         titleText.setBounds(65,100,400,50);
         titleText.setText("S E T T I N G S");
         titleText.setFont(new Font("Arial", Font.BOLD, 50));
@@ -109,7 +107,6 @@ public class Menu extends JFrame {
         motherlode.setOpaque(false);
         motherlode.setContentAreaFilled(false);
         motherlode.setBorderPainted(false);
-       // motherlode.setFocusPainted(false);
 
         ButtonHandler handler = new ButtonHandler();
         returnButton.addActionListener(handler);
@@ -123,6 +120,7 @@ public class Menu extends JFrame {
         settingsFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         settingsFrame.setIconImage(logo.getImage());
         settingsFrame.setSize(500, 500);
+        settingsFrame.setIconImage(logo.getImage());
         settingsFrame.setResizable(false);
         settingsFrame.setLocationRelativeTo(null);
         settingsFrame.setVisible(true);
@@ -140,8 +138,8 @@ public class Menu extends JFrame {
 
     private static Clip clip;
     public static int onOff = 1;
-        public static void musicPlayer(String title){                              //music handling
-         if (clip != null && clip.isRunning()) { clip.stop(); }
+    public static void musicPlayer(String title){                              //music handling
+        if (clip != null && clip.isRunning()) { clip.stop(); }
         try {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("Media/OST/" + title + ".wav").getAbsoluteFile());
                 clip = AudioSystem.getClip();
@@ -190,8 +188,11 @@ public class Menu extends JFrame {
                 settings();
             }
             if(e.getSource()==motherlode){
-                System.out.println("WORKS WORKS WORKS");
-               // Gnoxi.(50000); // ;)
+                if(GUI.currentGnoxi==null){
+                    System.out.println("Gnoxi not initialized");
+                }
+                GUI.currentGnoxi.setGold(GUI.currentGnoxi.getGold()+50000);
+                Gnoxi.save();
             }
         }
     }
